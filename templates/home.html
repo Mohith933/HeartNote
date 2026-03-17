@@ -707,8 +707,7 @@ submitBtn.onclick = async () => {
 
   const res = await fetch("/api/signup/", {
     method: "POST",
-    body: form,
-credentials: "include"
+    body: form
   });
 
   const data = await res.json();
@@ -758,8 +757,7 @@ loginBtn.onclick = async () => {
 
   const res = await fetch("/api/login/", {
     method: "POST",
-    body: form,
-credentials: "include"
+    body: form
   });
 
   const data = await res.json();

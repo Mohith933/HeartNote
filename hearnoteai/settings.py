@@ -21,13 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-crl!8gk0w!b2o(ikyj@7p*+*t&o!jymdh1w2#=ev0^l^v3mae7')
 
 # DEBUG is True locally, False on Render
-DEBUG = 'RENDER' not in os.environ
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [
-    "heartnote-ai.onrender.com",
-    "localhost",
-    "127.0.0.1"
-]
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost"
+).split(",")
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "CSRF_TRUSTED_ORIGINS",
+    "https://heartnote-ai.onrender.com"
+).split(",")
 
 # 3. APPLICATION DEFINITION
 INSTALLED_APPS = [

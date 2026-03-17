@@ -1,14 +1,17 @@
 import requests
 from datetime import datetime
+import os
+import time
+
 
 
 # ------------------------------------------
 # TONE STYLES
 # ------------------------------------------
 TONE_MAP = {
-    "soft": "Use short sentences. Use simple words. Keep emotions light and calm.",
-    "balanced": "Use clear and direct sentences. Stay grounded. No dramatic language.",
-    "deep": "Use short sentences. Mention one physical reaction (e.g., heavy chest, quiet room). Avoid abstract words."
+    "soft": "Gentle, calm, simple sentences.",
+    "balanced": "Clear, grounded, direct.",
+    "deep": "Short sentences. One physical detail. Concrete words."
 }
 
 
@@ -21,25 +24,18 @@ TONE_MAP = {
 # ------------------------------------------
 
 LETTER_TEMPLATE = """
-Letter
-
 Write a short personal letter based only on this real event:
-
 {content}
 
-STRICT RULES:
-- 50–60 words only
-- Exactly 3–4 sentences
-- Do NOT invent new characters or events
-- Focus only on the writer's internal feeling
-- If the input is vague, do not invent details. Keep it simple.
-- No advice
-- No life lessons
-- No clichés
-- Tone style: {tone}
+Rules:
+- 50–60 words
+- 3–4 sentences
+- No new events or characters
+- No advice or life lessons
+- Focus only on internal feelings
+- Tone: {tone}
 
-Format:
-
+Start with:
 Dear You,
 """
 
@@ -49,86 +45,65 @@ Dear You,
 
 
 JOURNAL_TEMPLATE = """
-Journal
-
-Write a personal journal entry about this real event:
+Write a journal entry about this real event:
 {content}
 
-STRICT RULES:
-- 50–70 words only
-- Exactly 4–6 sentences
-- Mention one specific detail from the moment
-- No advice
-- No philosophy
-- If the input is vague, keep it general and do not invent events
-- Tone style: {tone}
-- Simple, honest English
+Rules:
+- 50–70 words
+- 4–6 sentences
+- Mention one concrete detail
+- No advice or philosophy
+- Tone: {tone}
 
-Format:
-
+Start with:
 Date: {date}
-Write as if this happened today.
 """
 
 
 
 
 POEM_TEMPLATE = """
-Poem
-
-Write a short emotional poem based only on:
+Write a short poem based only on:
 {content}
 
-STRICT RULES:
+Rules:
 - Exactly 4 short lines
-- Use concrete words (hands, room, chair, rain, glass)
+- Concrete imagery only
 - No rhyming
-- No abstract philosophy
-- If input is vague, keep imagery simple
-- Tone style: {tone}
+- Tone: {tone}
 
-Respond ONLY with the poem.
+Return only the poem.
 """
 
 
 REFLECTION_TEMPLATE = """
-Reflection
-
-Write a personal reflection based strictly on this real moment:
+Write a short reflection based only on:
 {content}
 
-STRICT RULES:
-- 40–60 words only
-- Exactly 3–5 sentences
+Rules:
+- 40–60 words
+- 3–5 sentences
 - Mention one concrete detail
-- No advice
-- No life lessons
-- No general statements about life
-- If input is vague, do not invent events
-- Tone style: {tone}
+- No advice or general life statements
+- Tone: {tone}
 
-Respond ONLY with the reflection.
+Return only the reflection.
 """
 
 
 
 STORY_TEMPLATE = """
-Story
-
-Write a very short emotional story based only on:
+Write a very short story based only on:
 {content}
 
-STRICT RULES:
-- Exactly 2–3 sentences
+Rules:
+- 2–3 sentences
 - Focus on one small physical action
-- No moral lesson
-- No philosophical ending
-- If input is vague, keep it minimal
-- Tone style: {tone}
+- No moral or philosophical ending
+- Tone: {tone}
 
-Respond ONLY with the story.
+Return only the story.
 """
-
 
 
 
@@ -141,27 +116,34 @@ class LLM_Service:
     def __init__(self):
         pass
 
-    # -------------------------
-    # Gemini API call
-    # -------------------------
-    def call_ollama(self, prompt, model="llama3.2:3b"):
-        url = "http://localhost:11434/api/generate"
+ 
+    def call_gemini(self, prompt):
+        api_key = os.getenv("GEMINI_API_KEY")
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+        headers = {
+            "Content-Type": "application/json"
+               }
         payload = {
-        "model": model,
-        "prompt": prompt,
-        "stream": False,
-       "options": {"temperature": 0.5,"top_p": 0.9}
-        }
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt}
+                    ]
+                }
+            ],
+                "generationConfig": {
+                "temperature": 0.5,
+                "topP": 0.9,
+                "maxOutputTokens": 2000
+              }
+            }
         try:
-            response = requests.post(url, json=payload)
-            return response.json().get("response", "").strip()
+            response = requests.post(url, headers=headers, json=payload)
+            data = response.json()
+            return data["candidates"][0]["content"]["parts"][0]["text"].strip()
         except Exception as e:
-            return f"⚠️ Ollama error: {str(e)}"
-
-
-    # -------------------------
-    # Router
-    # -------------------------
+            return f"⚠️ Gemini error: {str(e)}"
+    
     def generate(self, mode, text, tone="soft"):
         tone_style = TONE_MAP.get(tone, TONE_MAP["soft"])
         mode = mode.lower().strip()
@@ -175,8 +157,8 @@ class LLM_Service:
 
         if prompt is None:
             return "⚠️ Unknown mode."
+        return self.call_gemini(prompt)
 
-        return self.call_ollama(prompt, model="llama3.2:3b")
 
     # -------------------------
     # Template selection
@@ -239,4 +221,3 @@ class LLM_Service:
             )
             
         return True, text
-

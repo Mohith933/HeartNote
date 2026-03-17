@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-crl!8gk0w!b2o(ikyj@7p*+*t&o!jymdh1w2#=ev0^l^v3mae7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("RENDER") is None
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "heartnote-ai.onrender.com",
@@ -39,9 +39,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 
-IS_PRODUCTION = os.environ.get("RENDER", False)
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+IS_PRODUCTION = os.environ.get("RENDER", False)
 
 
 # Application definition

@@ -36,7 +36,7 @@ Rules:
 - Tone: {tone}
 
 Start with:
-Dear You,
+Dear You,\n\n,
 """
 
 

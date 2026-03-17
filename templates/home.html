@@ -598,6 +598,9 @@ Continue where your thoughts left off.
   </div>
 </div>
   <script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("{% static 'pwa/'service-worker.js' %}");
+}
 // -----------------------------
 // MODALS
 // -----------------------------
@@ -768,9 +771,7 @@ loginBtn.onclick = async () => {
 
   window.location.href = "/dashboard/";
 };
-    if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register("{% static 'pwa/'service-worker.js' %}");
-}
+    
 </body>
 
 </html>

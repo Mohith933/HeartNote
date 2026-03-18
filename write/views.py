@@ -221,6 +221,12 @@ def save_writing(request):
     if not user_id:
         return JsonResponse({"error": "Not logged in"}, status=403)
 
+    is_fallback = request.POST.get("is_fallback") == "true"
+
+    # ❌ DO NOT SAVE fallback responses
+    if is_fallback:
+        return JsonResponse({"status": "ignored_fallback"})
+
     tool = request.POST.get("tool")
     icon = request.POST.get("icon")
     nameInput = request.POST.get("nameInput")
@@ -233,7 +239,6 @@ def save_writing(request):
 
     user = HeartUser.objects.filter(id=user_id).first()
 
-    # ✅ CHECK BEFORE SAVE
     existing = Writing.objects.filter(
         user=user,
         output=output
@@ -242,7 +247,6 @@ def save_writing(request):
     if existing:
         return JsonResponse({"status": "exists"})
 
-    # ✅ SAVE ONLY IF NOT EXISTS
     Writing.objects.create(
         user=user,
         tool=tool,

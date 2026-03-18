@@ -771,7 +771,7 @@ loginBtn.onclick = async () => {
   window.location.href = "/dashboard/";
 };
      if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("{% static 'pwa/service-worker.js' %}");
+            navigator.serviceWorker.register("/static/pwa/service-worker.js");
         }
   </script>
 </body>

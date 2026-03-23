@@ -16,41 +16,37 @@
     "productivity"
   ],
   "icons": [
-  {
-    "src": "/static/icons/icon-192.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },
-  {
-    "src": "/static/icons/icon-512.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-],
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
   "screenshots": [
     {
-      "src": "/static/screenshots/Home.png",
+      "src": "/static/screenshots/home.png",
       "sizes": "1280x686",
       "type": "image/png"
     },
     {
-      "src": "/static/screenshots/Write.png",
-      "sizes": "1280x684",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/screenshots/Letter.png",
-      "sizes": "1280x757",
+      "src": "/static/screenshots/dashboard.png",
+      "sizes": "1280x686",
       "type": "image/png"
     },
     {
       "src": "/static/screenshots/workspace.png",
-      "sizes": "1280x756",
+      "sizes": "1280x689",
       "type": "image/png"
     },
     {
       "src": "/static/screenshots/account.png",
-      "sizes": "1280x691",
+      "sizes": "1280x692",
       "type": "image/png"
     }
   ]

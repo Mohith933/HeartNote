@@ -9,12 +9,12 @@
   "lang": "en",
   "dir": "ltr",
   "orientation": "any",
-  "description": "HeartNote AI is an emotional AI writing assistant that helps you turn real thoughts, feelings, and moments into meaningful, structured writing.",
-  "categories": [
-    "health",
-    "lifestyle",
-    "productivity"
-  ],
+  "description": "HeartNote AI helps you turn real thoughts, emotions, and experiences into meaningful, structured writing using AI.",
+ "categories": [
+  "lifestyle",
+  "writing",
+  "health"
+],
   "icons": [
     {
       "src": "/icons/icon-192.png",

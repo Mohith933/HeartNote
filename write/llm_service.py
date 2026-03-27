@@ -62,18 +62,18 @@ Date: {date}
 
 
 
-POEM_TEMPLATE = """
-Write a short poem based only on:
-{content}
+# POEM_TEMPLATE = """
+# Write a short poem based only on:
+# {content}
 
-Rules:
-- Exactly 4 short lines
-- Concrete imagery only
-- No rhyming
-- Tone: {tone}
+# Rules:
+# - Exactly 4 short lines
+# - Concrete imagery only
+# - No rhyming
+# - Tone: {tone}
 
-Return only the poem.
-"""
+# Return only the poem.
+# """
 
 
 REFLECTION_TEMPLATE = """
@@ -92,18 +92,18 @@ Return only the reflection.
 
 
 
-STORY_TEMPLATE = """
-Write a very short story based only on:
-{content}
+# STORY_TEMPLATE = """
+# Write a very short story based only on:
+# {content}
 
-Rules:
-- 2–3 sentences
-- Focus on one small physical action
-- No moral or philosophical ending
-- Tone: {tone}
+# Rules:
+# - 2–3 sentences
+# - Focus on one small physical action
+# - No moral or philosophical ending
+# - Tone: {tone}
 
-Return only the story.
-"""
+# Return only the story.
+# """
 
 
 
@@ -173,14 +173,14 @@ class LLM_Service:
             date_str = datetime.now().strftime("%d/%m/%Y")
             return JOURNAL_TEMPLATE.format(date=date_str, content=text, tone=tone)
 
-        elif mode == "poem":
-            return POEM_TEMPLATE.format(content=text, tone=tone)
+        # elif mode == "poem":
+        #     return POEM_TEMPLATE.format(content=text, tone=tone)
         elif mode == "reflection":
             return REFLECTION_TEMPLATE.format(content=text, tone=tone)
 
-        elif mode == "story":
-            return STORY_TEMPLATE.format(content=text, tone=tone)
-        return None
+        # elif mode == "story":
+        #     return STORY_TEMPLATE.format(content=text, tone=tone)
+        # return None
     
 
     def safety_filter(self, text):

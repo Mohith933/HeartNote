@@ -5,7 +5,6 @@ from .llm_service import LLM_Service
 from .dashboard_llm_service import Dashboard_LLM_Service
 from .models import HeartUser
 from .models import Writing
-from django.contrib.auth.models import HeartUser
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password

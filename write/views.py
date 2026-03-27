@@ -5,6 +5,7 @@ from .llm_service import LLM_Service
 from .dashboard_llm_service import Dashboard_LLM_Service
 from .models import HeartUser
 from .models import Writing
+from django.contrib.auth.models import HeartUser
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
@@ -25,7 +26,13 @@ def dashboard(request):
         return redirect("/")
     return render(request, "dashboard.html")
 
-
+def create_admin():
+    if not HeartUser.objects.filter(username="admin").exists():
+        HeartUser.objects.create_superuser(
+            username="admin",
+            email="admin@gmail.com",
+            password="admin123"
+        )
 
 
 llm_simple = LLM_Service()

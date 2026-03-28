@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
 
 
+
 def home(request):
     # If logged-in, go to dashboard
     if request.session.get("user_id"):
@@ -25,13 +26,15 @@ def dashboard(request):
         return redirect("/")
     return render(request, "dashboard.html")
 
-def create_admin():
-    if not HeartUser.objects.filter(username="admin").exists():
-        HeartUser.objects.create_superuser(
-            username="admin",
-            email="admin@gmail.com",
-            password="admin123"
-        )
+
+def admin_stats(request):
+    total_users = HeartUser.objects.count()
+    total_writings = Writing.objects.count()
+
+    return JsonResponse({
+        "users": total_users,
+        "writings": total_writings
+    })
 
 
 llm_simple = LLM_Service()

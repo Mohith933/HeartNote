@@ -35,23 +35,18 @@
       "type": "image/png"
     },
     {
-      "src": "/static/screenshots/write.png",
-      "sizes": "1280x692",
-      "type": "image/png"
-    },
-    {
       "src": "/static/screenshots/dashboard.png",
-      "sizes": "1280x686",
+      "sizes": "1280x687",
       "type": "image/png"
     },
     {
       "src": "/static/screenshots/workspace.png",
-      "sizes": "1280x689",
+      "sizes": "1280x692",
       "type": "image/png"
     },
     {
       "src": "/static/screenshots/account.png",
-      "sizes": "1280x692",
+      "sizes": "1280x689",
       "type": "image/png"
     }
   ]

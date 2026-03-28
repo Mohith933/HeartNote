@@ -8,7 +8,8 @@ from .models import Writing
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
-
+from django.utils import timezone
+from datetime import timedelta
 
 
 def home(request):
@@ -27,13 +28,21 @@ def dashboard(request):
     return render(request, "dashboard.html")
 
 
+
+
 def admin_stats(request):
     total_users = HeartUser.objects.count()
     total_writings = Writing.objects.count()
 
+    # Users joined in last 24 hours
+    recent_users = HeartUser.objects.filter(
+        created_at__gte=timezone.now() - timedelta(days=1)
+    ).count()
+
     return JsonResponse({
         "users": total_users,
-        "writings": total_writings
+        "writings": total_writings,
+        "new_users_today": recent_users
     })
 
 

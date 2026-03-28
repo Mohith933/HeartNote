@@ -9,6 +9,7 @@ urlpatterns = [
     path("dashboard/",views.dashboard,name="dashboard"),
     path("api/generate/", views.generate_text, name="generate_text"),
     path("api/dashboard/", views.generate_dashboard, name="generate_dashboard"),
+    path("admin-starts/",views.admin_starts, name="admin_starts"),
     path("api/signup/", views.signup_api),
     path("api/login/",views.login_api),
     path("api/profile/", views.profile_api),

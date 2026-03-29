@@ -5,7 +5,7 @@
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width,initial-scale=1" />  
      <link rel="icon" type="image/png" href="{% static 'icons/icon-192.png' %}">
-  <title>HeartNote — Write From Real Moments</title>
+  <title>HeartNote AI — Memory-Based Personal Writing</title>  
   
   <!-- Quicksand (Google Fonts) -->  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
@@ -272,14 +272,14 @@ body.dark {
   </style>  
 </head>  
 <body>  
-  <div class="app" role="application" aria-label="HeartNote">    
+  <div class="app" role="application" aria-label="HeartNote AI">    
   <div class="header">    
     <div class="brand" aria-hidden="true">    
       <div class="heart"><img src="{% static 'icons/icon-512.png' %}"></div>    
       <div>    
         <div style="font-size:1.05rem">HeartNote</div>      
         <div style="font-size:0.78rem; color:var(--accent); margin-top:4px">
-          Write from what actually happened
+         Write from what actually happened
         </div>
       </div>    
     </div>    
@@ -295,39 +295,37 @@ body.dark {
     <!-- Left panel -->    
     <div class="panel" aria-live="polite">    
 
-     <label for="mode">Choose what you're writing</label>
+      <label for="mode">Choose what you're writing</label>    
       <div class="controls">    
         <select id="mode" aria-label="Choose mode">
           <option value="reflection">Reflection</option>  
           <option value="journal">Journal</option>  
-          <!-- <option value="poem">Poem</option>  
-          <option value="story">Story</option>   -->
           <option value="letter">Letter</option> 
         </select>  
       </div>    
 
-      <label for="prompt">Start with a real moment</label>
-<textarea placeholder="Think of something that actually happened. Who was there? What stayed with you?"></textarea>    
+      <label for="prompt" style="margin-top:12px">Start with a real moment</label>    
+      <textarea id="prompt"placeholder="Describe the real moment. What happened? Who was there? What was said?"></textarea>        
 
       <div class="row" style="margin-top:12px; align-items:center;">    
         <div style="flex:1">    
           <label for="emotion">How deep do you want to go?</label>   
           <input id="emotion" type="range" min="0" max="100" value="50" />    
-          <div class="muted" id="emotionLabel">Light</div>    
+          <div class="muted" id="emotionLabel">Balanced</div>    
         </div>    
 
         <div style="width:130px">    
           <label>&nbsp;</label>    
-          <button class="btn" id="generateBtn" style="width:100%">Turn this into writing</button>    
+          <button class="btn" id="generateBtn" style="width:100%">Write From This Moment</button>    
         </div>    
       </div>    
 
-      <div class="output" id="output" tabindex="0" aria-label="Generated output" style="font-size:1.15rem;">      
-        <div class="meta muted">Your words will take shape here.</div>      
-        <div class="muted">  
+      <div class="output" id="output" tabindex="0" aria-label="Generated output" style="font-size:1.15rem;">    
+        <div class="meta muted">Your words will take shape here.</div>    
+        <div class="muted">
 Write something real — even a small moment is enough.  
-</div>  
-      </div>
+</div>
+      </div>    
 
       <div class="toolbar" style="margin-top:8px">     
         <button class="ghost" id="addHistoryBtn">Add to History</button>    
@@ -337,7 +335,7 @@ Write something real — even a small moment is enough.
       </div>    
 
       <div class="footnote">
-        Start small. Real moments create real meaning.
+       Start small. Real moments create real meaning.
       </div>    
     </div>    
 

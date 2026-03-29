@@ -5,7 +5,7 @@
   <meta charset="utf-8" />  
   <meta name="viewport" content="width=device-width,initial-scale=1" />  
      <link rel="icon" type="image/png" href="{% static 'icons/icon-192.png' %}">
-  <title>HeartNote AI — Memory-Based Personal Writing</title>  
+  <title>HeartNote — Write From Real Moments</title>
   
   <!-- Quicksand (Google Fonts) -->  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
@@ -272,14 +272,14 @@ body.dark {
   </style>  
 </head>  
 <body>  
-  <div class="app" role="application" aria-label="HeartNote AI">    
+  <div class="app" role="application" aria-label="HeartNote">    
   <div class="header">    
     <div class="brand" aria-hidden="true">    
       <div class="heart"><img src="{% static 'icons/icon-512.png' %}"></div>    
       <div>    
-        <div style="font-size:1.05rem">HeartNote AI</div>      
+        <div style="font-size:1.05rem">HeartNote</div>      
         <div style="font-size:0.78rem; color:var(--accent); margin-top:4px">
-          Memory-Based Personal Writing
+          Write from what actually happened
         </div>
       </div>    
     </div>    
@@ -295,7 +295,7 @@ body.dark {
     <!-- Left panel -->    
     <div class="panel" aria-live="polite">    
 
-      <label for="mode">Mode</label>    
+     <label for="mode">Choose what you're writing</label>
       <div class="controls">    
         <select id="mode" aria-label="Choose mode">
           <option value="reflection">Reflection</option>  
@@ -306,50 +306,50 @@ body.dark {
         </select>  
       </div>    
 
-      <label for="prompt" style="margin-top:12px">What actually happened?</label>    
-      <textarea id="prompt"placeholder="Describe the real moment. What happened? Who was there? What was said?"></textarea>        
+      <label for="prompt">Start with a real moment</label>
+<textarea placeholder="Think of something that actually happened. Who was there? What stayed with you?"></textarea>    
 
       <div class="row" style="margin-top:12px; align-items:center;">    
         <div style="flex:1">    
-          <label for="emotion">Emotional Intensity</label>   
+          <label for="emotion">How deep do you want to go?</label>   
           <input id="emotion" type="range" min="0" max="100" value="50" />    
-          <div class="muted" id="emotionLabel">Balanced</div>    
+          <div class="muted" id="emotionLabel">Light</div>    
         </div>    
 
         <div style="width:130px">    
           <label>&nbsp;</label>    
-          <button class="btn" id="generateBtn" style="width:100%">Write From This Moment</button>    
+          <button class="btn" id="generateBtn" style="width:100%">Turn this into writing</button>    
         </div>    
       </div>    
 
-      <div class="output" id="output" tabindex="0" aria-label="Generated output" style="font-size:1.15rem;">    
-        <div class="meta muted">Your generated content will appear here.</div>    
-        <div class="muted">
-Be specific. Real moments create real writing.
-</div>
-      </div>    
+      <div class="output" id="output" tabindex="0" aria-label="Generated output" style="font-size:1.15rem;">      
+        <div class="meta muted">Your words will take shape here.</div>      
+        <div class="muted">  
+Write something real — even a small moment is enough.  
+</div>  
+      </div>
 
       <div class="toolbar" style="margin-top:8px">     
-        <button class="ghost" id="addHistoryBtn">⭐ Add to History</button>    
-        <button class="ghost" id="clearBtn">🧹 Clear</button>    
+        <button class="ghost" id="addHistoryBtn">Add to History</button>    
+        <button class="ghost" id="clearBtn">Clear</button>    
         <div style="flex:1"></div>    
         <div class="muted" id="lenInfo">0 chars</div>    
       </div>    
 
       <div class="footnote">
-        Tip: The more specific your memory, the more personal the writing becomes.
+        Start small. Real moments create real meaning.
       </div>    
     </div>    
 
     <!-- Right panel: history -->    
     <aside class="history" aria-label="Recent history">    
-      <h3>Recent</h3>    
+      <h3>Your past writings</h3>    
       <div id="historyList"></div>    
 
       <div style="margin-top:10px; display:flex; gap:8px">    
         <button class="ghost" id="clearHistory">Clear</button>    
         <div style="flex:1"></div>    
-        <div class="muted">Local only • private</div>    
+        <div class="muted">Only visible to you</div>    
       </div>    
     </aside>    
 
@@ -433,8 +433,8 @@ if (!userDOB) {
       // emotion label update  
       function updateEmotionLabel() {  
         const v = parseInt(emotionEl.value,10);  
-        if (v < 25) emotionLabel.textContent = "Soft";
-else if (v < 60) emotionLabel.textContent = "Balanced";
+        if (v < 25) emotionLabel.textContent = "Light";
+else if (v < 60) emotionLabel.textContent = "Honest";
 else emotionLabel.textContent = "Deep";
 
       }  

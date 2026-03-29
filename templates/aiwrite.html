@@ -307,8 +307,7 @@ body.dark {
       </div>    
 
       <label for="prompt" style="margin-top:12px">What actually happened?</label>    
-      <textarea id="prompt"placeholder="Describe the real moment. What happened? Who was there? What was said?"></textarea>  
-      <button id="suggestBtn" class="suggest">Need help recalling?</button>  
+      <textarea id="prompt"placeholder="Describe the real moment. What happened? Who was there? What was said?"></textarea>        
 
       <div class="row" style="margin-top:12px; align-items:center;">    
         <div style="flex:1">    
@@ -704,51 +703,6 @@ themeToggle.addEventListener("click", () => {
   updateThemeIcon();
   updateThemeColor(theme);
 });
-// All suggestion sets grouped by mode (SAFE H1 VERSION)
-const suggestionSets = {
-reflection: [
-  "a moment today that changed how I felt",
-  "something someone said that stayed in my mind",
-  "a small mistake that taught me something",
-  "a decision I made and why it mattered",
-  "a moment I didn’t react but wanted to"
-],
-
-journal: [
-  "what actually happened today that affected me",
-  "a conversation that stood out",
-  "a moment I felt misunderstood",
-  "something I avoided saying today",
-  "one specific event I keep thinking about"
-],
-
-// poem: [
-//   "the night I couldn’t sleep and why",
-//   "a memory that feels like rain",
-//   "the room where everything changed",
-//   "a goodbye I wasn’t ready for",
-//   "a quiet moment that meant more than it looked"
-// ],
-
-
-// story: [
-//   "the exact moment I realized I was wrong",
-//   "the sound or smell that triggered the change", 
-//   "the object I held in my hand when I almost gave up",
-//   "the stranger who said something that changed everything",
-//   "the very first morning after the event happened"
-// ],
-
-letter: [
-  "the day my sister cried and I stayed silent",
-  "when my father scolded me and I said nothing",
-  "the hospital visit when I couldn’t say sorry",
-  "the goodbye at the bus stop last year",
-  "when my friend moved away and I didn’t react"
-]
-
-};
-
 
 // Mode selector + button handler
 document.getElementById("suggestBtn").addEventListener("click", () => {

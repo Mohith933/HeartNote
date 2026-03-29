@@ -163,7 +163,7 @@ Return only the reflection.
 # -----------------------------------------------------
 # LLM SERVICE (MERGED)
 # -----------------------------------------------------
-class LLM_Service:
+class Dashboard_LLM_Service:
 
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")

@@ -1030,10 +1030,6 @@
                 width: 100%;
                 padding: 0;
             }
-            .checkin-buttons{
-                display: flex;
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -1257,8 +1253,6 @@ It guides you through moments, reactions, and reflections — so your words feel
                 <div id="recentCards" class="recent-cards"></div>
             </div>
         </div>
-
- 
         <!-- Tool Workspace -->
         <div id="workspaceView" class="workspace">
             <button class="back-btn" onclick="confirmExitWhileWriting(goBack)">
@@ -1269,30 +1263,40 @@ It guides you through moments, reactions, and reflections — so your words feel
                 <div class="form-section">
                     <h3 id="toolTitle">Reflection</h3>
 
-<label for="nameInput">Who is this about?</label>
-<div class="input-group">
-    <input type="text" id="nameInput"
-        placeholder="Someone important... or even yourself"
-        required>
-</div>
+                    <label for="nameInput">Who was involved in this moment?</label>
+                    <div class="input-group">
+                        <input type="text" id="nameInput"
+                            placeholder="e.g. My sister, My best friend, My father, Myself..." required>
+                    </div>
+                    <label for="descInput">What actually happened?</label>
 
-<label for="descInput">What happened in that moment?</label>
-<div class="input-group">
-    <textarea id="descInput" rows="4"
-        placeholder="Describe what really happened. What did you feel? What stayed unsaid?"
-        required></textarea>
-</div>
+                    <div class="input-group">
+                        <textarea id="descInput" rows="4"
+                            placeholder="Describe the real moment. What happened? What was said? What did you not say?"
+                            required></textarea>
+                        
+                    </div>
+                    
 
-<label for="depthInput">How deep do you want to go?</label>
-<select id="depthInput">
-    <option value="light">Keep it light</option>
-    <option value="medium">Be honest</option>
-    <option value="deep">Say everything</option>
-</select>
+                    <label for="depthInput">Depth of Emotion</label> <select id="depthInput">
+                        <option value="light">Gentle</option>
+<option value="medium">Honest</option>
+<option value="deep">Raw</option>
 
+                    </select>
 <p class="helper-text">Take a breath. Write what feels true.</p>
+                    <button class="generate" onclick="generateContent()">Write From This Moment</button>
 
-<button class="generate" onclick="generateContent()">Write from this moment</button>
+                </div>
+
+                <div class="playground-section">
+                    <div class="playground-header">
+                        <h3>Your Writing</h3>
+                        <div class="writing-actions">
+                        <button class="copy-btn" onclick="copyText()">Copy</button>
+                        </div>
+                    </div>
+                    <div id="output" class="output">Your words from that moment will appear here.
                     </div>
                 </div>
             </div>

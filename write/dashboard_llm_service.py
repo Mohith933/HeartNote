@@ -2,9 +2,13 @@ import requests
 from datetime import datetime
 import os
 
+GEMINI_MODEL = "gemini-2.5-flash"
+
+
+
 
 # -----------------------------------------------------
-# DEPTH → TONE STYLE
+# TONE DEPTH MAP
 # -----------------------------------------------------
 DEPTH_TONE = {
     "light": "Write gently. Keep it simple and calm.",
@@ -12,10 +16,6 @@ DEPTH_TONE = {
     "deep": "Write with emotional weight. Use one real detail. Keep sentences short."
 }
 
-
-# -----------------------------------------------------
-# SUPPORTED LANGUAGES
-# -----------------------------------------------------
 SUPPORTED_LANGUAGES = {
     "en": "English",
     "english": "English",
@@ -25,8 +25,9 @@ SUPPORTED_LANGUAGES = {
 
 
 # -----------------------------------------------------
-# DASHBOARD TEMPLATES (FINAL)
+# SIMPLE EMOTIONAL TEMPLATES FOR 8 MODES
 # -----------------------------------------------------
+
 DASHBOARD_REFLECTION = """
 Write a simple emotional reflection in {language}.
 
@@ -148,6 +149,8 @@ Focus:
 Feeling:
 {desc}
 
+Style: {tone}
+
 Rules:
 - 35–55 words
 - Calm tone
@@ -159,86 +162,112 @@ Rules:
 Return only the reflection.
 """
 
-
 # -----------------------------------------------------
-# LLM SERVICE (MERGED)
+# LLM SERVICE
 # -----------------------------------------------------
 class Dashboard_LLM_Service:
 
-    def __init__(self):
-        self.api_key = os.getenv("GEMINI_API_KEY")
-
-
-    # -------------------------------------------------
-    # GEMINI CALL
-    # -------------------------------------------------
-    def call_gemini(self, prompt, model="flash"):
-
-        # 🔥 Model switching
-        if model == "pro":
-            model_name = "gemini-2.5-pro"
-        else:
-            model_name = "gemini-2.5-flash"
-
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={self.api_key}"
-
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "temperature": 0.9,
-                "topP": 0.9,
-                "maxOutputTokens": 300
-            }
-        }
-
-        try:
-            res = requests.post(url, json=payload, timeout=30)
-            data = res.json()
-
-            return data.get("candidates", [{}])[0] \
-                .get("content", {}) \
-                .get("parts", [{}])[0] \
-                .get("text", "⚠️ No response").strip()
-
-        except Exception as e:
-            return f"⚠️ Gemini error: {str(e)}"
-
+    def __init__(self, model=GEMINI_MODEL):
+        self.model = model
 
     # -------------------------------------------------
     # MAIN GENERATE
     # -------------------------------------------------
-    def generate(self, mode, name, desc, depth="light", language="en"):
-
+    def generate(self, mode, name, desc, depth, language):
         mode = (mode or "").lower().strip()
         depth = (depth or "light").lower().strip()
-        language = SUPPORTED_LANGUAGES.get(language.lower(), "English")
-
+        raw_lang = (language or "en").lower().strip()
+        language = SUPPORTED_LANGUAGES.get(raw_lang, "English")
         tone = DEPTH_TONE.get(depth, DEPTH_TONE["light"])
-
-        # ✅ Safety first
-        safe, msg = self.safety_filter(desc)
+        safe, safe_message = self.safety_filter(desc)
         if not safe:
-            return msg
-
-        # ✅ Template
+            return {
+            "response": safe_message,
+            "blocked": True,
+            "is_fallback": False}
         template = self.get_template(mode)
         if not template:
-            return "⚠️ Invalid mode"
-
+            return {
+            "response": "This writing mode is not available right now.",
+            "blocked": False,
+            "is_fallback": True}
         date = datetime.now().strftime("%d/%m/%Y")
-
-        prompt = template.format(
+        try:
+            prompt = template.format(
             name=name,
             desc=desc,
             tone=tone,
+            depth=depth,
             language=language,
-            date=date
-        )
+            date=date)
+        except Exception:
+            prompt = template.format(
+            name=name,
+            desc=desc,
+            tone=tone,
+            language=language)
+        
+        full_prompt = f"[LANG={language}]\n{prompt}"
+        try:
+            api_key = os.getenv("GEMINI_API_KEY")
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={api_key}"
+            headers = {
+            "Content-Type": "application/json"}
+            payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": full_prompt}
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.9,
+                "topP": 0.9,
+                "maxOutputTokens": 300
+            }}
+            res = requests.post(url, headers=headers, json=payload, timeout=30)
+            res.raise_for_status()
+            data = res.json()
+            raw = data["candidates"][0]["content"]["parts"][0]["text"]
+            if not isinstance(raw, str) or not raw.strip():
+                return {
+                "response": (
+                    "The words feel quiet right now.\n\n"
+                    "Some feelings take a moment before they find language."
+                ),
+                "blocked": False,
+                "is_fallback": True
+            }
+            return {
+            "response": raw.strip(),
+            "blocked": False,
+            "is_fallback": False}
+        except requests.exceptions.HTTPError as e:
+            if e.response is not None and e.response.status_code == 429:
+                return {
+                "response": "⚠️ Too many requests. Please wait a moment and try again.",
+                "blocked": True,
+                "is_fallback": False}
+            return {
+            "response": (
+                "The thoughts are still forming.\n\n"
+                "Please try again in a moment."
+            ),
+            "blocked": False,
+            "is_fallback": False
+            }
+        except Exception:
+            return {
+            "response": (
+                "The thoughts are still forming.\n\n"
+                "Please try again in a moment."
+            ),
+            "blocked": False,
+            "is_fallback": False
+            }
 
-        # 🔥 Smart model switch
-        model_type = "pro" if depth == "deep" else "flash"
 
-        return self.call_gemini(prompt, model=model_type)
 
 
     # -------------------------------------------------
@@ -254,31 +283,31 @@ class Dashboard_LLM_Service:
             "checkin": DASHBOARD_CHECKIN
         }.get(mode)
 
-
     # -------------------------------------------------
-    # SAFETY FILTER
+    # SAFETY FILTER (MINIMAL)
     # -------------------------------------------------
     def safety_filter(self, text):
-
         t = (text or "").lower()
 
-        bad_words = ["fuck", "bitch", "shit", "asshole"]
+        bad_words = [
+            "fuck", "bitch", "shit", "asshole",
+            "bastard", "slut", "dick", "pussy"
+        ]
         for w in bad_words:
             if w in t:
-                return False, "⚠️ Please use respectful language."
+                return False, "⚠️ Please rewrite using respectful language."
 
         selfharm = [
             "kill myself", "i want to die", "end my life",
             "self harm", "no reason to live"
         ]
-
         for s in selfharm:
             if s in t:
                 return False, (
-                    "⚠️ I can’t continue this.\n\n"
-                    "You matter.\n"
-                    "You are not alone.\n"
-                    "Support is available."
+                    "⚠️ HeartNote AI cannot generate this.\n\n"
+                    "• You matter.\n"
+                    "• You are not alone.\n"
+                    "• Support is available."
                 )
 
         return True, text

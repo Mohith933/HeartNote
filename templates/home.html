@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="icon" type="image/png" href="{% static 'icons/icon-192.png' %}">
-  <title>HeartNote AI — Write From What Actually Happened.</title>
+  <title>HeartNote — Write What You Couldn't Say</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141414">
@@ -498,7 +498,7 @@ padding : 10px 14px;
 
   <header>
     <div class="logo"> <img src="{% static 'icons/icon-512.png' %}" alt="HeartNote AI Logo">
-    <span>HeartNote AI</span></div>
+    <span>HeartNote</span></div>
     <div class="buttons">
     <button class="cta-btn" id="openSignup">Sign Up</button>
     <button class="cta-btn" id="openLogin">Login</button>
@@ -507,56 +507,56 @@ padding : 10px 14px;
 
 
   <section class="hero" id="home">
-    <h1>HeartNote AI — Write From What Actually Happened.</h1>
-    <p>Describe a real moment. HeartNote transforms it into meaningful, deeply personal writing.</p>
-    <a href="{% url 'aiwrite' %}" class="hero-btn">Start With a Moment</a>
-    <p class="helper-text">No signup required</p>
+    <h1>Write What You Couldn't Say.</h1>
+<p>Start from a real moment. Turn it into words that actually feel like you.</p>
+<a href="{% url 'aiwrite' %}" class="hero-btn">Start With a Real Moment</a>
+<p class="helper-text">No signup required</p>
   </section>
 
   <section class="features" id="features">
     <h2>Why It Feels Different</h2>
-    <div class="features-grid">
-      <div class="feature">
-        <h3>Memory Anchoring</h3>
-        <p>Write from specific moments, not generic feelings.</p>
-      </div>
-      <div class="feature">
-        <h3>Structured Emotion Input</h3>
-        <p>Guided prompts help you recall real events before writing.</p>
-      </div>
-      <div class="feature">
-        <h3>Private & Personal</h3>
-        <p>Your writings stay private to your account.</p>
-      </div>
-    </div>
+<div class="features-grid">
+  <div class="feature">
+    <h3>Start From Something Real</h3>
+    <p>Write from a moment that actually happened — not random ideas.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Guided, Not Generated</h3>
+    <p>You describe it. The writing follows your experience.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Private By Default</h3>
+    <p>Your thoughts stay yours. No sharing. No noise.</p>
+  </div>
+</div>
   </section>
 
   <section class="journey" id="journey">
     <h2>Built for Real Moments</h2>
-    <div class="journey-timeline">
+<div class="journey-timeline">
 
-      <div class="journey-step">
-        <h3>H1 — Memory-Based Personal Writing</h3>
-        <p>HeartNote focuses on one thing — helping you transform real-life moments into deeply personal letters,
-          reflections, and stories.</p>
-      </div>
-      <div class="journey-step">
-        <h3>H2 — Private Emotional Insights</h3>
-        <p>See how your emotional tone shifts over time through simple, private writing summaries. No feeds. No sharing.
-          Just your words, reflected back to you.</p>
-      </div>
+  <div class="journey-step">
+    <h3>1. Remember</h3>
+    <p>Think of a real moment — something you felt but couldn’t express.</p>
+  </div>
 
-      <div class="journey-step">
-        <h3>H3 — Gentle Emotional Support</h3>
-        <p>Occasional check-ins and short weekly reflections based on your writing. Not advice. Not therapy. Just a
-          quiet mirror to help you notice what you’ve been carrying.</p>
-      </div>
-    </div>
+  <div class="journey-step">
+    <h3>2. Describe</h3>
+    <p>Write what happened, in your own words.</p>
+  </div>
+
+  <div class="journey-step">
+    <h3>3. Express</h3>
+    <p>See your thoughts turn into something clear and meaningful.</p>
+  </div>
+
+</div>
   </section>
   <footer>
-    <h3>HeartNote AI</h3>
-    <p>Writing shaped by real moments.</p>
-    <small>© 2025 HeartNote AI. All rights reserved.</small>
+    <h3>HeartNote</h3>
+<p>Built around real human moments.</p>
   </footer>
 
   <!-- Signup Modal -->
@@ -565,7 +565,7 @@ padding : 10px 14px;
     {%csrf_token%}
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
-      <h2>Create Your Private Space</h2>
+      <h2>Create Your Space</h2>
       <label for="dob" class="dob-label">Username</label>
       <input type="text" id="username" placeholder="Username" required>
       <label for="dob" class="dob-label">Email</label>
@@ -587,7 +587,7 @@ padding : 10px 14px;
 <div id="loginModal" class="modal">
   <div class="modal-content">
     <span class="close" id="closeLogin">&times;</span>
-    <h2>Return to Your Private Space</h2>
+    <h2>Welcome Back</h2>
      <label for="dob" class="dob-label">Username</label>
     <input type="text" id="login_username" placeholder="Username or Email">
      <label for="dob" class="dob-label">Password</label>
@@ -595,7 +595,7 @@ padding : 10px 14px;
 
     <button id="loginBtn">Login</button>
     <p style="font-size:14px;color:#aaa;">
-Continue where your thoughts left off.
+Continue where you left off.
 </p>
   </div>
 </div>

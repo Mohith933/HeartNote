@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
    <link rel="icon" type="image/png" href="{% static 'icons/icon-192.png' %}">
-    <title>HeartNote AI — Dashboard</title>
+    <title>HeartNote — Your Space</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600&family=Kalam&family=Dancing+Script:wght@400;600&display=swap"
@@ -1054,59 +1054,71 @@
     <aside class="sidebar">
         <div>
             <div class="logo">
-    <img src="{% static 'icons/icon-192.png' %}" alt="HeartNote AI Logo">
-    <span>HeartNote AI</span>
+    <img src="{% static 'icons/icon-192.png' %}" alt="HeartNote Logo">
+    <span>HeartNote</span>
 </div>
             <nav class="menu">
 
-                <!-- 🌞 Group 1: Day-to-Day Life -->
-                <div class="menu-group">
-                    <button class="dropdown-btn">Day-to-Day Life ▾</button>
-                    <div class="dropdown-content">
-                        <a href="#" id="menu-dashboard" onclick="openTool('Dashboard'); setActiveMenu(this)">🏠
-                            Dashboard</a>
-                        <a href="#"
-                            onclick="confirmExitWhileWriting(() => openTool('Reflection')); setActiveMenu(this)">🌿
-                            Reflection</a>
-                        <a href="#" onclick="confirmExitWhileWriting(() => openTool('Journal')); setActiveMenu(this)">📖
-                            Journal</a>
-                    </div>
-                </div>
+    <!-- 🌞 Daily Space -->
+    <div class="menu-group">
+        <button class="dropdown-btn">Daily Space ▾</button>
+        <div class="dropdown-content">
+            <a href="#" id="menu-dashboard"
+               onclick="openTool('Dashboard'); setActiveMenu(this)">
+               🏠 Dashboard
+            </a>
 
-                <!-- 💞 Group 2: Couples / Emotional Writing -->
-                <div class="menu-group">
-                    <button class="dropdown-btn">Heart & Emotion ▾</button>
-                    <div class="dropdown-content">
-                        <a href="#" onclick="confirmExitWhileWriting(() => openTool('Letters')); setActiveMenu(this)">💌
-                            Letters</a>
-                        <!-- <a href="#" onclick="confirmExitWhileWriting(() => openTool('Poems')); setActiveMenu(this)">🪶
-                            Poems</a>
-                        <a href="#" onclick="confirmExitWhileWriting(() => openTool('Story')); setActiveMenu(this)">✨
-                            Story</a> -->
-                    </div>
-                </div>
-                <div class="menu-group">
-    <button class="dropdown-btn">Emotional Insight ▾</button>
+            <a href="#"
+               onclick="confirmExitWhileWriting(() => openTool('Reflection')); setActiveMenu(this)">
+               🌿 Reflection
+            </a>
 
-    <div class="dropdown-content">
-        <a href="#" onclick="confirmExitWhileWriting(() => openTool('Messages')); setActiveMenu(this)">
-            💬 Messages
-        </a>
-
-        <a href="#" onclick="confirmExitWhileWriting(() => openTool('Memories')); setActiveMenu(this)">
-            🧠 Memories
-        </a>
+            <a href="#"
+               onclick="confirmExitWhileWriting(() => openTool('Journal')); setActiveMenu(this)">
+               💭 Journal
+            </a>
+        </div>
     </div>
-</div>
-<div class="menu-group">
-    <button class="dropdown-btn">Gentle Check-In ▾</button>
-     <div class="dropdown-content">
-<a href="#" onclick="confirmExitWhileWriting(() => openTool('CheckIn')); setActiveMenu(this)">
-    🫶 CheckIn
-</a>
-</div>
-</div>
-            </nav>
+
+    <!-- 💛 Express Yourself -->
+    <div class="menu-group">
+        <button class="dropdown-btn">Express Yourself ▾</button>
+        <div class="dropdown-content">
+            <a href="#"
+               onclick="confirmExitWhileWriting(() => openTool('Letters')); setActiveMenu(this)">
+               ❤️ Letters
+            </a>
+        </div>
+    </div>
+
+    <!-- 🧠 Understand Feelings -->
+    <div class="menu-group">
+        <button class="dropdown-btn">Understand Feelings ▾</button>
+        <div class="dropdown-content">
+            <a href="#"
+               onclick="confirmExitWhileWriting(() => openTool('Messages')); setActiveMenu(this)">
+               🫤 Messages
+            </a>
+
+            <a href="#"
+               onclick="confirmExitWhileWriting(() => openTool('Memories')); setActiveMenu(this)">
+               🧠 Memories
+            </a>
+        </div>
+    </div>
+
+    <!-- 🫶 Self Check -->
+    <div class="menu-group">
+        <button class="dropdown-btn">Self Check ▾</button>
+        <div class="dropdown-content">
+            <a href="#"
+               onclick="confirmExitWhileWriting(() => openTool('CheckIn')); setActiveMenu(this)">
+               🫶 Check-In
+            </a>
+        </div>
+    </div>
+
+</nav>
         </div>
     </aside>
 
@@ -1201,11 +1213,10 @@
 
             <!-- ABOUT SECTION -->
             <div class="section-box">
-                <h3>About HeartNote AI</h3>
+                <h3>About HeartNote</h3>
 
-                <p>HeartNote AI is built to structure emotional writing. 
-It guides you through moments, reactions, and reflections — so your words feel intentional, not random</p>
-                <p class="about-small">Version: 1<br>Created by Solulure Labs</p>
+<p>HeartNote is a quiet space to turn real moments into words.
+It helps you slow down, notice what stayed with you, and express it clearly.</p> class="about-small">Version: 1<br>Created by Mohith Sai</p>
             </div>
         </div>
 
@@ -1213,15 +1224,15 @@ It guides you through moments, reactions, and reflections — so your words feel
         <!-- Dashboard Cards -->
         <div id="libraryView">
               <div class="checkin-box">
-        <h3>How are you feeling today?</h3>
+    <h3>How are you feeling right now?</h3>
 
-        <div class="checkin-buttons">
-            <button onclick="quickCheckin('Calm')">😊 Calm</button>
-            <button onclick="quickCheckin('Low')">😔 Low</button>
-            <button onclick="quickCheckin('Peaceful')">😌 Peaceful</button>
-            <button onclick="quickCheckin('Confused')">😕 Confused</button>
-        </div>
+    <div class="checkin-buttons">
+        <button onclick="quickCheckin('calm')">🌿 Calm</button>
+        <button onclick="quickCheckin('low')">🌧️ Low</button>
+        <button onclick="quickCheckin('peaceful')">🌅 Peaceful</button>
+        <button onclick="quickCheckin('confused')">🌫️ Confused</button>
     </div>
+</div>
             <h3 class="maincardname">Your Writing Tools</h3>
             
             <div class="cards">
@@ -1278,7 +1289,7 @@ It guides you through moments, reactions, and reflections — so your words feel
 
                     </select>
 <p class="helper-text">Take a breath. Write what feels true.</p>
-                    <button class="generate" onclick="generateContent()">Write From This Moment</button>
+                    <button class="generate" onclick="generateContent()">Continue Writing</button>
 
                 </div>
 
@@ -1296,7 +1307,7 @@ It guides you through moments, reactions, and reflections — so your words feel
         </div>
         <div id="state" data-blocked="false" data-viewing="false"></div>
 
-        <footer>© 2025 HeartNote AI — Designed with by Mohith Sai</footer>
+        <footer>© 2025 HeartNote — Built around real moments</footer>
     </main>
 
     <script>
@@ -1358,18 +1369,17 @@ It guides you through moments, reactions, and reflections — so your words feel
     });
 }
 
-        function getToolIcon(name) {
+        
+    function getToolIcon(name) {
     const icons = {
-        "Letters": "💌",
-        // "Poems": "🪶",
-        // "Story": "✨",
-        "Journal": "📔",
-        "Reflection": "🌿",
-        "Messages": "💬",
-        "Memories": "🧠",
-         "CheckIn": "🫶",
+        "Letters": "❤️",        // emotional expression
+        "Journal": "💭",        // free thoughts
+        "Reflection": "🌿",     // calm thinking
+        "Messages": "🫤",       // unsaid/confused feelings
+        "Memories": "🧠",       // past recall
+        "CheckIn": "🫶",        // self-care
     };
-    return icons[name] || "🪶";
+    return icons[name] || "🌱";
 }
 
  let recentsData = [];
@@ -1771,17 +1781,45 @@ async function goBack() {
     cardsContainer.innerHTML = "";
 
     const cards = [
-        { icon:"🌿", title:"Reflection", desc:"Break down a moment and understand it better.", tool:"Reflection"},
-        { icon:"📔", title:"Journal", desc:"Write about your day and your thoughts.", tool:"Journal"},
-        { icon:"💌", title:"Letters", desc:"Write a heartfelt letter to someone.", tool:"Letters"},
-        // { icon:"🪶", title:"Poems", desc:"Express feelings through poetry.", tool:"Poems"},
-        // { icon:"✨", title:"Story", desc:"Turn your thoughts into a meaningful story.", tool:"Story"},
-        { icon:"💬", title:"Messages", desc:"Write a message you want to say but haven’t sent.", tool:"Messages"},
-        { icon:"🧠", title:"Memories", desc:"Capture a moment from the past and reflect on it.", tool:"Memories"},
-        { icon:"🫶", title:"Gentle Check-In", desc:"Pause and reflect on the emotional moments of your week.", tool:"CheckIn"}
-    ];
+    {
+        icon:"🌿",
+        title:"Something is on your mind",
+        desc:"Break down a moment and understand it.",
+        tool:"Reflection"
+    },
+    {
+        icon:"💭",
+        title:"I just want to write",
+        desc:"No structure, just let it out.",
+        tool:"Journal"
+    },
+    {
+        icon:"❤️",
+        title:"I want to say something to someone",
+        desc:"Express what you couldn't say.",
+        tool:"Letters"
+    },
+    {
+        icon:"🫤",
+        title:"I feel confused",
+        desc:"Turn unclear thoughts into clarity.",
+        tool:"Messages"
+    },
+    {
+        icon:"🧠",
+        title:"Thinking about the past",
+        desc:"Capture and understand memories.",
+        tool:"Memories"
+    },
+    {
+        icon:"🫶",
+        title:"Check how I’m doing",
+        desc:"Pause and reflect emotionally.",
+        tool:"CheckIn"
+    }
+];
 
-    const visibleCards = isMobile ? cards.slice(0,8) : cards;
+    const visibleCards = isMobile ? cards.slice(0,4) : cards;
 
     visibleCards.forEach(card => {
         cardsContainer.innerHTML += `

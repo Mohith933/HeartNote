@@ -59,8 +59,8 @@ User Input → Backend (Django) → AI Processing → Response Formatting → UI
 ## ⚙️ Setup (Local Development)
 
 ```bash
-git clone https://github.com/your-username/HeartNote-Ai.git
-cd HeartNote-Ai
+git clone https://github.com/your-username/HeartNote.git
+cd HeartNote
 pip install -r requirements.txt
 python manage.py runserver
 

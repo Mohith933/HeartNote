@@ -8,8 +8,10 @@
   <title>HeartNote AI — Memory-Based Personal Writing</title>  
   
   <!-- Quicksand (Google Fonts) -->  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">  
+ <link
+        href="https://fonts.googleapis.com/family=Kalam:wght@400;600&display=swap"
+        rel="stylesheet">
   <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
 <meta name="theme-color" content="#ffffff" id="themeColorMeta">
   <style>  
@@ -35,7 +37,7 @@ body.dark {
     html,body{height:100%}  
     body{  
       margin:0;  
-      font-family: 'Inter', sans-serif;  
+      font-family: 'Poppins', sans-serif;  
       background:var(--bg);  
       color: var(--text);  
       -webkit-font-smoothing:antialiased;  
@@ -62,6 +64,19 @@ body.dark {
     .app { opacity:0; animation: fadeInApp 0.8s ease forwards; }  
 @keyframes fadeInApp { to { opacity:1; } }  
   
+
+
+
+textarea:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent);
+  box-shadow: 0 0 0px rgba(255, 107, 138, 0.2);
+}
+
+textarea::placeholder {
+  color:grey;
+  font-style: italic;
+}
     /* Header */  
     .header {  
       display:flex;  
@@ -101,7 +116,6 @@ body.dark {
     /* Main grid */  
     .grid {  
       display:grid;  
-      grid-template-columns: 1fr 420px;  
       gap:18px;  
       margin-top:18px;  
     }  
@@ -111,7 +125,7 @@ body.dark {
       background:var(--card);  
      backdrop-filter: blur(10px);  
      border: 1px solid rgba(255, 77, 109, 0.2);  
-      padding:16px;  
+       padding: 28px 26px;
       border-radius:12px;  
       backface-visibility:hidden;  
     }  
@@ -122,8 +136,9 @@ body.dark {
     select, textarea, input[type="range"] {  
       width:100%;  
       border-radius:10px;  
-      backdrop-filter: blur(10px);  
-      border: 1px solid rgba(255, 77, 109, 0.2);  
+      box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border: none;  
       background:transparent;  
       color: var(--text);  
       padding:10px;  
@@ -133,7 +148,7 @@ body.dark {
     option{
       color:var(--option);
     }
-    textarea{ min-height:90px; resize:vertical; }  
+    textarea{ min-height:90px;resize: none;}  
   
     .small { width:auto; display:inline-flex; gap:8px; align-items:center; }  
   
@@ -172,7 +187,9 @@ body.dark {
     .output {  
       margin-top:14px;  
       background: var(--glass);  
-      border: 1px solid rgba(255, 77, 109, 0.2);  
+      box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border:none;  
       padding:14px;  
       border-radius:10px;  
       min-height:140px;  
@@ -181,6 +198,8 @@ body.dark {
       line-height:1.5;  
       font-size:1rem;  
       white-space:pre-wrap;  
+      word-break: normal;
+      overflow-wrap: break-word;
     }  
   
     .output h2 { margin:0 0 8px 0; font-size:1.05rem; color:var(--text); }  
@@ -200,33 +219,10 @@ body.dark {
       max-height:560px;  
       overflow:auto;  
     } 
-    .suggest{
-    background: var(--accent);
-    border: none;
-    margin-top:10px;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: transform .12s 
-    ease, box-shadow .12s 
-    ease;
-    }
-    .history h3{ margin:0 0 8px 0; color:var(--text) }  
-    .hist-item {  
-      padding:8px;  
-      border-radius:8px;  
-      background:transparent;  
-      display:flex;  
-      justify-content:space-between;  
-      gap:8px;  
-      margin-bottom:8px;  
-      border:1px solid rgba(255,255,255,0.03);  
-      cursor:pointer;  
-    }  
-    .hist-item:hover { background: rgba(255,255,255,0.02) }  
+
+    .thinking {
+  opacity: 0.7;
+}
   
     .muted { color:var(--text); opacity:0.9; font-size:0.9rem; }  
   
@@ -257,10 +253,6 @@ body.dark {
 }
   
     /* responsive */  
-    @media (max-width:880px){  
-      .grid{ grid-template-columns: 1fr; }  
-      .history{ order:2; }  
-    }  
     @media (max-width:768px){  
        body{  
         padding-left: 10px;  
@@ -277,8 +269,8 @@ body.dark {
     <div class="brand" aria-hidden="true">    
       <div class="heart"><img src="{% static 'icons/icon-512.png' %}"></div>    
       <div>    
-        <div style="font-size:1.05rem">HeartNote</div>      
-        <div style="font-size:0.78rem; color:var(--accent); margin-top:4px">
+        <div style="font-size:1.05rem;margin-top: -0.8rem;">HeartNote</div>      
+        <div style="font-size:0.78rem; color:var(--accent);">
          Write from what actually happened
         </div>
       </div>    
@@ -304,63 +296,37 @@ body.dark {
         </select>  
       </div>    
 
-      <label for="prompt" style="margin-top:12px">Start with a real moment</label>    
-      <textarea id="prompt"placeholder="Describe the real moment. What happened? Who was there? What was said?"></textarea>        
+      <label for="prompt" style="margin-top:12px">Pick what fits this moment</label>    
+      <textarea id="prompt"placeholder="Start with what stays in your mind…"></textarea>        
 
       <div class="row" style="margin-top:12px; align-items:center;">    
         <div style="flex:1">    
-          <label for="emotion">How deep do you want to go?</label>   
+          <label for="emotion">How deeply do you want to explore this?</label>   
           <input id="emotion" type="range" min="0" max="100" value="50" />    
           <div class="muted" id="emotionLabel">Balanced</div>    
         </div>    
 
         <div style="width:130px">    
           <label>&nbsp;</label>    
-          <button class="btn" id="generateBtn" style="width:100%">Write From This Moment</button>    
+          <button class="btn" id="generateBtn" style="width:100%">Turn this into writing</button>    
         </div>    
       </div>    
 
       <div class="output" id="output" tabindex="0" aria-label="Generated output" style="font-size:1.15rem;">    
-        <div class="meta muted">Your words will take shape here.</div>    
-        <div class="muted">
-Write something real — even a small moment is enough.  
-</div>
+        <div class="meta muted">This is where your moment begins to feel clearer.
+Write something real — even a small moment is enough  </div>    
       </div>    
 
       <div class="toolbar" style="margin-top:8px">     
-        <button class="ghost" id="addHistoryBtn">Add to History</button>    
+        <button class="ghost" id="copyBtn">Copy</button>    
         <button class="ghost" id="clearBtn">Clear</button>    
         <div style="flex:1"></div>    
         <div class="muted" id="lenInfo">0 chars</div>    
       </div>    
-
       <div class="footnote">
        Start small. Real moments create real meaning.
       </div>    
     </div>    
-
-    <!-- Right panel: history -->    
-    <aside class="history" aria-label="Recent history">    
-      <h3>Your past writings</h3>    
-      <div id="historyList"></div>    
-
-      <div style="margin-top:10px; display:flex; gap:8px">    
-        <button class="ghost" id="clearHistory">Clear</button>    
-        <div style="flex:1"></div>    
-        <div class="muted">Only visible to you</div>    
-      </div>    
-    </aside>    
-
-  </div>
-</div>
-<div id="dobOverlay" class="overlay" style="display: none;">
-  <div class="dob-box">
-    <h3>Enter your Date of Birth</h3>
-    <input type="date" id="dobInput" />
-    <button id="dobSubmit">Continue</button>
-  </div>
-</div>
-  
   <script>  
     // Simple HeartNote AI h1 — client-side  
     (function () {  
@@ -370,59 +336,12 @@ Write something real — even a small moment is enough.
       const emotionLabel = document.getElementById("emotionLabel");  
       const generateBtn = document.getElementById("generateBtn");  
       const outputEl = document.getElementById("output");  
-      const addHistoryBtn = document.getElementById("addHistoryBtn");  
-      const historyList = document.getElementById("historyList");  
-      const clearHistoryBtn = document.getElementById("clearHistory");  
+      const copy = document.getElementById("copy-btn");
       const lenInfo = document.getElementById("lenInfo"); 
  
   
       // local storage key  
       const STORAGE_KEY = "heartnote_h1_history";  
-let userDOB = localStorage.getItem("heartnote_dob") || null;
-let isAdult = false;
-
-
-
-function calculateAge(dob) {
-  const birth = new Date(dob);
-  const diff = Date.now() - birth.getTime();
-  return Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000));
-}
-
-function showDOBOverlay() {
-  document.getElementById("dobOverlay").style.display = "flex";
-
-  document.getElementById("dobSubmit").onclick = () => {
-    const enteredDOB = document.getElementById("dobInput").value;
-    if (!enteredDOB) return;
-
-    localStorage.setItem("heartnote_dob", enteredDOB);
-    userDOB = enteredDOB;
-    validateAge();
-    document.getElementById("dobOverlay").style.display = "none";
-  };
-}
-
-function validateAge() {
-  const age = calculateAge(userDOB);
-  isAdult = age >= 18;
-
-  const childModes = ["reflection", "journal"];
-
-  for (let option of modeEl.options) {
-    if (!isAdult && !childModes.includes(option.value)) {
-      option.disabled = true;
-    } else {
-      option.disabled = false;
-    }
-  }
-}
-
-if (!userDOB) {
-  showDOBOverlay();
-} else {
-  validateAge();
-}
   
       // helpers  
       function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }  
@@ -446,45 +365,43 @@ function emotionalHandwriteHTML(html, elementId, toneLevel = "medium") {
     el.innerHTML = "";
     el.classList.add("handwriting");
 
-    let speed;
+    let baseSpeed;
     switch (toneLevel.toLowerCase()) {
-        case "deep": speed = 80; break;
-        case "light": speed = 35; break;
-        default: speed = 55;
+        case "deep": baseSpeed = 90; break;
+        case "light": baseSpeed = 40; break;
+        default: baseSpeed = 60;
     }
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-    const nodes = [...doc.body.childNodes];
+    const fullText = doc.body.innerText;
 
-    let nodeIndex = 0;
-    let charIndex = 0;
-    let currentNode;
-    let currentClone;
+    let index = 0;
 
-    const fullTextLength = doc.body.innerText.length; // total chars
+    function getHumanDelay(char) {
+        let delay = baseSpeed;
+
+        // ✨ randomness (human inconsistency)
+        delay += Math.random() * 40 - 20;
+
+        // ⏸ punctuation pauses
+        if ([".", "!", "?"].includes(char)) delay += 200;
+        else if (char === ",") delay += 120;
+
+        // 🤔 thinking pauses (random)
+        if (Math.random() < 0.05) delay += 150;
+
+        return delay;
+    }
 
     function typeNext() {
-        if (!currentNode || charIndex >= currentNode.textContent.length) {
-            if (nodeIndex >= nodes.length) {
-                // ✨ Done → show char count
-                const lenInfo = document.getElementById("lenInfo");
-                if (lenInfo) {
-                    lenInfo.textContent = `${fullTextLength} chars`;
-                }
-                return;
-            }
-            currentNode = nodes[nodeIndex++];
-            currentClone = currentNode.cloneNode(false);
-            el.appendChild(currentClone);
-            charIndex = 0;
-        }
+        if (index >= fullText.length) return;
 
-        const text = currentNode.textContent;
-        currentClone.textContent = text.slice(0, charIndex + 1);
-        charIndex++;
+        const char = fullText[index];
+        el.textContent += char;
+        index++;
 
-        setTimeout(typeNext, (charIndex % 6 === 0) ? speed * 1.6 : speed);
+        setTimeout(typeNext, getHumanDelay(char));
     }
 
     typeNext();
@@ -496,6 +413,16 @@ function getToneFromEmotion(value) {
   if (num <= 33) return "soft";
   if (num <= 66) return "balanced";
   return "deep";
+}
+function getLoadingText(tone) {
+  switch (tone) {
+    case "deep":
+      return "Sitting with your thoughts… turning them into words.";
+    case "light":
+      return "Shaping your words…";
+    default:
+      return "Turning your moment into something meaningful…";
+  }
 }
 
 generateBtn.addEventListener("click", async () => {
@@ -512,7 +439,7 @@ generateBtn.addEventListener("click", async () => {
   // Convert emotion slider → tone keyword
   const tone = getToneFromEmotion(emotion);
 
-  outputBox.innerHTML = "⏳ Generating...";
+outputBox.innerHTML = `<span class="thinking">${getLoadingText(tone)}</span>`;
 
 
   try {
@@ -587,78 +514,27 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Missing one or more required elements (clearBtn, outputContainer, descInput, or lenInfo).");
     }
 });
-
-       // History management  
-      function loadHistory() {  
-        const raw = localStorage.getItem(STORAGE_KEY);  
-        let arr = [];  
-        try { arr = raw ? JSON.parse(raw) : []; } catch(e){ arr = []; }  
-        historyList.innerHTML = "";  
-        if (!arr.length) {  
-          historyList.innerHTML = `<div class="muted">No saved entries yet. Generate and "Add to History".</div>`;  
-          return;  
-        }  
-        arr.forEach((it, idx) => {  
-          const div = document.createElement("div");  
-          div.className = "hist-item";  
-          div.innerHTML = `<div style="flex:1"><strong style="display:block">${it.mode.toUpperCase()}</strong><div style="font-size:0.9rem;color:var(--text);margin-top:6px">${it.preview}</div></div>  
-                           <div style="min-width:72px;display:flex;flex-direction:column;gap:6px">  
-                             <button class="ghost" data-idx="${idx}" data-action="open">Open</button>  
-                             <button class="ghost" data-idx="${idx}" data-action="delete">Delete</button>  
-                           </div>`;  
-          historyList.appendChild(div);  
-        });  
-      }  
-  
       // Add to history (stores HTML + meta)  
-      addHistoryBtn.addEventListener("click", () => {  
-        const text = outputEl.innerText.trim();  
-        if (!text) { alert("Nothing to add."); return; }  
-        const mode = modeEl.value;  
-        const preview = text.length > 90 ? text.slice(0,90) + "…" : text;  
-        const raw = localStorage.getItem(STORAGE_KEY);  
-        let arr = raw ? JSON.parse(raw) : [];  
-        arr.unshift({ ts: nowTs(), mode, preview, text });  
-        // keep 60 entries max  
-        if (arr.length > 60) arr = arr.slice(0,60);  
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));  
-        loadHistory();  
-        addHistoryBtn.textContent = "Saved ✓";  
-        setTimeout(()=> addHistoryBtn.textContent = "⭐ Add to History",1200);  
-      });  
-  
-      // History click handling (delegation)  
-      historyList.addEventListener("click", (ev) => {  
-        const btn = ev.target.closest("button[data-action]");  
-        if (!btn) return;  
-        const idx = parseInt(btn.dataset.idx,10);  
-        const action = btn.dataset.action;  
-        const raw = localStorage.getItem(STORAGE_KEY);  
-        const arr = raw ? JSON.parse(raw) : [];  
-        if (action === "open") {  
-          const it = arr[idx];  
-          if (!it) return;  
-          // open in output area  
-          outputEl.innerText = it.text;  
-          lenInfo.textContent = `${it.text.length} chars`;  
-          // set mode to the saved mode  
-          if (it.mode) modeEl.value = it.mode;  
-        } else if (action === "delete") {  
-          if (!confirm("Delete this saved entry?")) return;  
-          arr.splice(idx,1);  
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));  
-          loadHistory();  
-        }  
-      });  
-  
-      clearHistoryBtn.addEventListener("click", () => {  
-        if (!confirm("Clear all saved history?")) return;  
-        localStorage.removeItem(STORAGE_KEY);  
-        loadHistory();  
-      });  
-  
-      // initialize  
-      loadHistory();  
+     copyBtn.addEventListener("click", () => {  
+    const text = outputEl.innerText.trim();  
+
+    if (!text) { 
+        alert("Nothing to copy."); 
+        return; 
+    }  
+
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            copyBtn.textContent = "Copied ✓";
+            setTimeout(() => {
+                copyBtn.textContent = "Copy";
+            }, 1200);
+        })
+        .catch(() => {
+            alert("Copy failed. Try manually.");
+        });
+}); 
+
   
       // small accessibility: allow Enter on prompt to generate when focused + ctrl  
       promptEl.addEventListener("keydown", (e) => {  
@@ -700,14 +576,6 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("valantine_theme", theme);
   updateThemeIcon();
   updateThemeColor(theme);
-});
-
-// Mode selector + button handler
-document.getElementById("suggestBtn").addEventListener("click", () => {
-  const modes = document.getElementById("mode").value; // e.g. "poem", "journal"
-  const list = suggestionSets[modes];
-  const random = list[Math.floor(Math.random() * list.length)];
-  document.getElementById("prompt").value = random;
 });
 function goHome() {
   window.location.href = "/";

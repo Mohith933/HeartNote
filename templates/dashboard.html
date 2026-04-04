@@ -1,4 +1,4 @@
-{%load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
     <title>HeartNote — Your Space</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@400;600&family=Kalam&family=Dancing+Script:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
     <meta name="theme-color" content="#ffffff" id="themeColorMeta">
@@ -19,6 +19,8 @@
             --bg: #ffffff;
             --text: #222222;
             --card: #fff;
+            --playground : #faf7f6;
+               --playground-text:#a8a6a3;
             --muted: #f9f9f9;
         }
 
@@ -28,6 +30,8 @@
             --card: #1a1a1a;
             --muted: #141414;
             --accent: #ff668a;
+            --playground : #121010;
+                    --playground-text :#e8e6e3;
             --accent-dark: #ff4d6d;
         }
 
@@ -527,15 +531,25 @@
 
         .form-container {
             display: flex;
-            gap: 30px;
+            gap:10px;
+            border-radius: 20px;
+            flex-direction: row;
             flex-wrap: wrap;
         }
 
-        .form-section,
-        .playground-section {
+        .form-section {
             background: var(--card);
-            padding: 24px;
-            border-radius: 14px;
+            padding: 20px;
+            border-radius:14px;
+            flex: 1;
+            min-width: 300px;
+        }
+        .playground-section{
+            border-radius:14px;
+            background: var(--playground);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
             flex: 1;
             min-width: 300px;
         }
@@ -547,8 +561,8 @@
             margin-bottom: 14px;
             resize: none;
             padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 14px;
+            border: none;
             background: var(--muted);
             color: var(--text);
         }
@@ -565,6 +579,7 @@
             color: #fff;
             border: none;
             padding: 6px 10px;
+  transition: opacity 0.4s ease;
             border-radius: 8px;
             font-size: 0.85rem;
             cursor: pointer;
@@ -574,10 +589,13 @@
         .copy-btn:hover {
             background: var(--accent-dark);
         }
-
         .generate {
             background: var(--accent);
             color: #fff;
+            text-align: center;
+            width:100%;
+            margin-top:10px;
+            margin-bottom:12px;
             padding: 12px 18px;
             border-radius: 10px;
             border: none;
@@ -596,14 +614,13 @@
 
         .output {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.8;
             letter-spacing: 0.3px;
             white-space: pre-wrap;
-            color: var(--text);
+            color:var(--playground-text);
             padding: 10px;
         }
-
         .back-btn {
             background: none;
             border: none;
@@ -653,58 +670,11 @@
             width: 100%;
         }
 
-        .suggest-topic {
-            position: absolute;
-            right: 5px;
-            top: 10px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 1.2rem;
-            opacity: 0.7;
-            transition: 0.2s ease;
-        }
-
-        .suggest-felling {
-            position: absolute;
-            right: 5px;
-            top: 70px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 1.2rem;
-            opacity: 0.7;
-            transition: 0.2s ease;
-        }
-
-        .suggest-topic {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .suggest-felling {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
 
 
         .input-group input,
         .input-group textarea {
             flex: 1;
-        }
-
-
-        .copy-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.2s;
         }
 
         .copy-btn:hover {
@@ -988,14 +958,31 @@
     border-radius: 8px;
     border: none;
     background:var(--accent);
-    color: var(--text);
+    color: #fff;
     cursor: pointer;
+}
+
+.helper-text{
+        margin-top: 8px;
+        margin-bottom:8px;
+        text-align: center;
+      /* space from button */
+      font-size: 0.85rem;
+      /* smaller text */
+      color: #9ca3af;
+
+      opacity: 0.9;
 }
 
         @media(max-width:768px) {
             .sidebar {
                 display: none;
             }
+            .checkin-buttons{
+                display: flex;
+                flex-direction: column;
+            }
+            
 
             .festival-popup {
                 left: 50%;
@@ -1016,14 +1003,11 @@
             }
 
             .playground-header {
-                justify-content: flex-start;
+                justify-content: space-between;
+                margin-bottom: 0;
             }
-
-            .copy-btn {
-                font-size: 0.85rem;
-                padding: 6px 12px;
-                margin-left: 60px;
-                margin-bottom: 6.5px;
+            .playground-header h3{
+                font-size:1rem;
             }
 
             #accountView {
@@ -1082,7 +1066,7 @@
 
     <!-- 💛 Express Yourself -->
     <div class="menu-group">
-        <button class="dropdown-btn">Express Yourself ▾</button>
+        <button class="dropdown-btn">Express Yourself▾</button>
         <div class="dropdown-content">
             <a href="#"
                onclick="confirmExitWhileWriting(() => openTool('Letters')); setActiveMenu(this)">
@@ -1093,7 +1077,7 @@
 
     <!-- 🧠 Understand Feelings -->
     <div class="menu-group">
-        <button class="dropdown-btn">Understand Feelings ▾</button>
+        <button class="dropdown-btn">Understand Feelings▾</button>
         <div class="dropdown-content">
             <a href="#"
                onclick="confirmExitWhileWriting(() => openTool('Messages')); setActiveMenu(this)">
@@ -1109,7 +1093,7 @@
 
     <!-- 🫶 Self Check -->
     <div class="menu-group">
-        <button class="dropdown-btn">Self Check ▾</button>
+        <button class="dropdown-btn">Self Check▾</button>
         <div class="dropdown-content">
             <a href="#"
                onclick="confirmExitWhileWriting(() => openTool('CheckIn')); setActiveMenu(this)">
@@ -1181,8 +1165,6 @@
                     <span>Handwriting Style</span>
                     <select id="handwritingStyle" class="select-style">
                         <option value="default" selected>Default</option>
-                        <option value="cute">Cute Notebook ✨</option>
-                        <option value="deep">Deep Poetry 🖋️</option>
                         <option value="journal">Bold Journal 🌙</option>
                     </select>
                 </label>
@@ -1216,16 +1198,15 @@
                 <h3>About HeartNote</h3>
 
 <p>HeartNote is a quiet space to turn real moments into words.
-It helps you slow down, notice what stayed with you, and express it clearly.</p> <p class="about-small">Version: 1<br>Created by Mohith Sai</p>
+It helps you slow down, notice what stayed with you, and express it clearly.</p> <p class="about-small">Version: 3<br>Created by Mohith Sai</p>
             </div>
         </div>
 
 
         <!-- Dashboard Cards -->
         <div id="libraryView">
+                <h3 class="maincardname">How are you feeling right now?</h3>
               <div class="checkin-box">
-    <h3>How are you feeling right now?</h3>
-
     <div class="checkin-buttons">
         <button onclick="quickCheckin('calm')">🌿 Calm</button>
         <button onclick="quickCheckin('low')">🌧️ Low</button>
@@ -1233,7 +1214,7 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
         <button onclick="quickCheckin('confused')">🌫️ Confused</button>
     </div>
 </div>
-            <h3 class="maincardname">Your Writing Tools</h3>
+            <h3 class="maincardname">Where do you want to start?</h3>
             
             <div class="cards">
                 <div class="card" onclick="openTool('Letters')">
@@ -1253,26 +1234,26 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                 </div>
             </div>
             <div id="recentSection" class="recent-section">
-                <h3>🕒 Your Recent Activity</h3>
+                <h3>My Moments</h3>
                 <div id="recentCards" class="recent-cards"></div>
             </div>
         </div>
         <!-- Tool Workspace -->
         <div id="workspaceView" class="workspace">
             <button class="back-btn" onclick="confirmExitWhileWriting(goBack)">
-                ← Back to Tools
+                ← Back
             </button>
 
             <div class="form-container">
                 <div class="form-section">
                     <h3 id="toolTitle">Reflection</h3>
 
-                    <label for="nameInput">Who was involved in this moment?</label>
+                    <label for="nameInput">Who Comes to mind in this moment?</label>
                     <div class="input-group">
                         <input type="text" id="nameInput"
                             placeholder="e.g. My sister, My best friend, My father, Myself..." required>
                     </div>
-                    <label for="descInput">What actually happened?</label>
+                    <label for="descInput">What Stayed with you from that movement?</label>
 
                     <div class="input-group">
                         <textarea id="descInput" rows="4"
@@ -1282,25 +1263,25 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                     </div>
                     
 
-                    <label for="depthInput">Depth of Emotion</label> <select id="depthInput">
+                    <label for="depthInput">How deep you are feel?</label> <select id="depthInput">
                         <option value="light">Gentle</option>
 <option value="medium">Honest</option>
 <option value="deep">Raw</option>
 
                     </select>
-<p class="helper-text">Take a breath. Write what feels true.</p>
-                    <button class="generate" onclick="generateContent()">Continue Writing</button>
-
+                    <button class="generate" id="continueBtn" onclick="generateContent()">Continue Writing</button>
+                    <p class="helper-text">Your Writing gently expanded Here</p>
                 </div>
-
                 <div class="playground-section">
-                    <div class="playground-header">
-                        <h3>Your Writing</h3>
-                        <div class="writing-actions">
+                                <div class="writing-actions">
+                        <div class="playground-header">
+                        <h3>What's taking shape...</h3>
                         <button class="copy-btn" onclick="copyText()">Copy</button>
                         </div>
-                    </div>
-                    <div id="output" class="output">Your words from that moment will appear here.
+                         </div>
+                    <div id="output" class="output">Take a breath...
+What you couldn't say yet
+begins to take shape
                     </div>
                 </div>
             </div>
@@ -1491,9 +1472,7 @@ async function showRecents(){
 }
         function capitalizeFirst(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
-        }
-
-    
+        }  
 
 async function goBack() {
 
@@ -1534,7 +1513,6 @@ async function goBack() {
 
     document.getElementById("workspaceView").classList.remove("active");
     document.getElementById("libraryView").style.display = "block";
-
     showRecents();
 }
 
@@ -1546,46 +1524,55 @@ async function goBack() {
             return "deep";
         }
 
-        function emotionalTypeWrite(text, elementId, depth, onComplete) {
-            const el = document.getElementById(elementId);
-            el.innerHTML = "";
+       function emotionalTypeWrite(text, elementId, depth, onComplete) {
+    const el = document.getElementById(elementId);
+    el.innerHTML = "";
 
-            let i = 0;
-            let speed = 55;
-            if (depth === "light") speed = 35;
-            if (depth === "deep") speed = 80;
+    let i = 0;
+    let speed = 55;
+    if (depth === "light") speed = 35;
+    if (depth === "deep") speed = 80;
 
-            if (typingInterval) {
-                clearTimeout(typingInterval);
-                typingInterval = null;
-            }
+    let typingInterval;
 
-            function typeNext() {
-                if (i >= text.length) {
-                    typingInterval = null;
-                    if (onComplete) onComplete();
-                    return;
-                }
+    function isWordEnd(char, nextChar) {
+        return char !== " " && nextChar === " ";
+    }
 
-                let char = text.charAt(i);
-                el.innerHTML += char;
-                i++;
-
-                let pause = speed;
-
-                // natural pauses
-                if (char === "," || char === ";") pause += 120;
-                if (char === "." || char === "!" || char === "?") pause += 200;
-                if (char === "\n") pause += 300;
-
-                // emotional hesitation (very subtle)
-                if (depth === "deep" && Math.random() < 0.06) pause += 150;
-
-                typingInterval = setTimeout(typeNext, pause);
-            }
-
-            typeNext();
+    function typeNext() {
+        if (i >= text.length) {
+            if (onComplete) onComplete();
+            return;
         }
+
+        let char = text[i];
+        let nextChar = text[i + 1];
+
+        el.innerHTML += char;
+        i++;
+
+        let pause = speed;
+
+        // punctuation pauses
+        if (char === "," || char === ";") pause += 120;
+        if (char === "." || char === "!" || char === "?") pause += 200;
+        if (char === "\n") pause += 300;
+
+        // pause only at word end (important!)
+        if (isWordEnd(char, nextChar)) {
+            pause += 60;
+        }
+
+        // emotional hesitation (only at safe points)
+        if (depth === "deep" && isWordEnd(char, nextChar) && Math.random() < 0.08) {
+            pause += 150;
+        }
+
+        typingInterval = setTimeout(typeNext, pause);
+    }
+
+    typeNext();
+}
 
 
 
@@ -1714,7 +1701,7 @@ async function goBack() {
     const tool = document.getElementById("toolTitle").innerText.toLowerCase();
     const text = document.getElementById("output").innerText;
 
-    const sensitiveTools = ["letters", "poems", "story"];
+    const sensitiveTools = ["letters"];
 
     if (sensitiveTools.includes(tool)) {
 
@@ -1751,8 +1738,6 @@ async function goBack() {
                 case "reflection": return "reflection";
                 case "journal": return "journal";
                 case "letters": return "letters";
-                // case "poems": return "poems";
-                // case "story": return "story";
                 case "messages": return "messages";
                 case "memories": return "memories";
                 case "checkin": return "checkin";
@@ -1783,25 +1768,25 @@ async function goBack() {
     const cards = [
     {
         icon:"🌿",
-        title:"Something is on your mind",
+        title:"Something’s on your mind",
         desc:"Break down a moment and understand it.",
         tool:"Reflection"
     },
     {
         icon:"💭",
-        title:"I just want to write",
+        title:"Just write",
         desc:"No structure, just let it out.",
         tool:"Journal"
     },
     {
         icon:"❤️",
-        title:"I want to say something to someone",
+        title:"Say something to someone",
         desc:"Express what you couldn't say.",
         tool:"Letters"
     },
     {
         icon:"🫤",
-        title:"I feel confused",
+        title:"Feeling confused",
         desc:"Turn unclear thoughts into clarity.",
         tool:"Messages"
     },
@@ -2065,13 +2050,8 @@ document.addEventListener("DOMContentLoaded", loadProfile);
             applyHandwritingStyle(selected);
         });
         function applyHandwritingStyle(style) {
-            outputArea.classList.remove("font-cute", "font-romantic", "font-deep", "font-journal");
-
-            if (style === "cute") {
-                outputArea.classList.add("font-cute");
-            } else if (style === "deep") {
-                outputArea.classList.add("font-deep");
-            } else if (style === "journal") {
+            outputArea.classList.remove("font-journal");
+            if (style === "journal") {
                 outputArea.classList.add("font-journal");
             }
         }
@@ -2163,6 +2143,7 @@ document.addEventListener("DOMContentLoaded", loadProfile);
     const profileAvatar = document.getElementById("profileAvatar");
     const dashboardAvatar = document.getElementById("dashboardAvatar");
     const input = document.getElementById("avatarInput");
+    const editBadge = document.getElementById("editBadge");
 
     // Load avatar from server
     const res = await fetch("/api/avatar/");
@@ -2187,7 +2168,7 @@ document.addEventListener("DOMContentLoaded", loadProfile);
 
         const res = await fetch("/api/upload-avatar/", {
             method: "POST",
-            body: formx
+            body: form
         });
 
         const data = await res.json();
@@ -2198,9 +2179,7 @@ document.addEventListener("DOMContentLoaded", loadProfile);
         }
 
     });
-
 });
-
     </script>
 </body>
 

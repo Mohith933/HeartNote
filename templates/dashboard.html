@@ -206,7 +206,12 @@
             background: var(--muted);
             min-height: 100vh;
         }
-        .main {
+        .sidebar{
+                       opacity:0; animation: fadeInApp 0.8s ease forwards; }  
+@keyframes fadeInApp { to { opacity:1; } 
+
+        }
+        .main{
             opacity:0; animation: fadeInApp 0.8s ease forwards; }  
 @keyframes fadeInApp { to { opacity:1; } 
         }
@@ -2183,7 +2188,12 @@ document.addEventListener("DOMContentLoaded", loadProfile);
         }
 
     });
+
+
 });
+
+
+
     </script>
 </body>
 

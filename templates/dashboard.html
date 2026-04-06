@@ -31,7 +31,7 @@
             --muted: #141414;
             --accent: #ff668a;
             --playground : #121010;
-                    --playground-text :#e8e6e3;
+            --playground-text :#e8e6e3;
             --accent-dark: #ff4d6d;
         }
 
@@ -286,6 +286,7 @@
 .soft-line {
     color: #888;
     font-size: 0.9rem;
+    margin-bottom:10px;
     margin-top: -5px;
 }
 
@@ -297,9 +298,11 @@
 }
         /* Section Boxes */
         .section-box {
-             border: none;
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(6px);
+        
+             border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background:var(--card);
+   backdrop-filter: blur(12px);
             border-radius: 14px;
             padding: 20px;
             margin-bottom: 20px;
@@ -1068,7 +1071,7 @@
 
     <!-- 🌞 Daily Space -->
     <div class="menu-group">
-        <button class="dropdown-btn">Daily Space ▾</button>
+        <button class="dropdown-btn">Your Space ▾</button>
         <div class="dropdown-content">
             <a href="#" id="menu-dashboard"
                onclick="openTool('Dashboard'); setActiveMenu(this)">
@@ -1089,7 +1092,7 @@
 
     <!-- 💛 Express Yourself -->
     <div class="menu-group">
-        <button class="dropdown-btn">Express Yourself▾</button>
+        <button class="dropdown-btn">Write Freely▾</button>
         <div class="dropdown-content">
             <a href="#"
                onclick="confirmExitWhileWriting(() => openTool('Letters')); setActiveMenu(this)">
@@ -1100,7 +1103,7 @@
 
     <!-- 🧠 Understand Feelings -->
     <div class="menu-group">
-        <button class="dropdown-btn">Understand Feelings▾</button>
+        <button class="dropdown-btn">Understand Yourself▾</button>
         <div class="dropdown-content">
             <a href="#"
                onclick="confirmExitWhileWriting(() => openTool('Messages')); setActiveMenu(this)">
@@ -1116,7 +1119,7 @@
 
     <!-- 🫶 Self Check -->
     <div class="menu-group">
-        <button class="dropdown-btn">Self Check▾</button>
+        <button class="dropdown-btn">Check yourself▾</button>
         <div class="dropdown-content">
             <a href="#"
                onclick="confirmExitWhileWriting(() => openTool('CheckIn')); setActiveMenu(this)">
@@ -1180,21 +1183,21 @@
             <div class="section-box" id="settingsPanel">
                 <h3>Make it yours</h3>
                 <label class="toggle-row">
-                    <span>Theme</span>
+                    <span>Appearance</span>
                     <select id="themeMode" class="select-style">
                         <option value="light">Light</option>
                         <option value="dark">Dark</option>
                     </select>
                 </label>
                 <label class="toggle-row">
-                    <span>Handwriting Style</span>
+                    <span>Writing Feel</span>
                     <select id="handwritingStyle" class="select-style">
                         <option value="default" selected>Default</option>
                         <option value="journal">Bold Journal 🌙</option>
                     </select>
                 </label>
                 <label class="toggle-row">
-                    <span>Font Size</span>
+                    <span>Text Size</span>
                     <select id="fontSize" class="select-style">
                         <option value="small">Small</option>
                         <option value="medium" selected>Medium</option>
@@ -1221,7 +1224,7 @@
                 <h3>About HeartNote</h3>
 
 <p>HeartNote is a quiet space to turn real moments into words.
-It helps you slow down, notice what stayed with you, and express it clearly.</p> <p class="about-small">Version: 3<br>Created by Mohith Sai</p>
+It helps you slow down, notice what stayed with you, and express it clearly.</p> <p class="about-small">Version: 4 Lite<br>Created by Mohith Sai</p>
             </div>
         </div>
 
@@ -2205,9 +2208,6 @@ document.addEventListener("DOMContentLoaded", loadProfile);
 
 
 });
-
-
-
     </script>
 </body>
 

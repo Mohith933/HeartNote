@@ -1132,11 +1132,12 @@
         <div id="accountView" class="hidden pageView">
             <button class="back" onclick="goDashboard()">← Back</button>
 
-            <h2>Account</h2>
+            <h2>Your Space</h2>
+<p class="soft-line">This is your quiet corner.</p>
 
             <!-- PROFILE SECTION -->
             <div class="section-box">
-                <h3>Profile</h3>
+                <h3>You</h3>
                 <center>
                    <div class="avatar-edit">
                         <img class="profile-avatar" id="profileAvatar"
@@ -1156,13 +1157,14 @@
                 </div>
 
                 <div class="info-row">
-                    <strong>Email</strong>
+                    <strong>Reach you at</strong>
                     <span id="displayEmail"></span>
                 </div>
+<p class="soft-note">You’ve been honest here.</p>
             </div>
 
             <div class="section-box" id="settingsPanel">
-                <h3>Settings</h3>
+                <h3>Make it yours</h3>
                 <label class="toggle-row">
                     <span>Theme</span>
                     <select id="themeMode" class="select-style">
@@ -1191,15 +1193,13 @@
                         <option value="en">English</option>
                         <option value="hi">हिन्दी (Hindi)</option>
                     </select>
-                </label> <button class="feedback-btn" onclick="openFeedbackForm()">
-                    Send Feedback
-                </button>
+                </label> <button class="feedback-btn" onclick = "openFeedbackForm()">Share a thought</button>
 
-                <button class="danger-btn" onclick="resetApp()">
-                    Reset App
-                </button>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-               <button class="logout-btn" onclick="deleteAccount()">Delete Account</button>
+<button class="danger-btn" onclick="deleteAccount()">Clear this space</button>
+
+<button class="reset-btn" onclick="resetApp()">Take a break</button>
+
+<button class="logout-btn" onclick="logout()">Leave completely</button>
             </div>
 
             <!-- ABOUT SECTION -->

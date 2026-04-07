@@ -8,7 +8,7 @@
     <title>HeartNote — Your Space</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
     <meta name="theme-color" content="#ffffff" id="themeColorMeta">
@@ -1979,8 +1979,8 @@ document.addEventListener("DOMContentLoaded", loadProfile);
         async function deleteAccount() {
 
     showHeartNotePopup(
-        "Delete Account",
-        "Are you sure you want to delete your account?\n\nThis will remove your profile and all saved writings.",
+        "Clean your Space",
+        "Are you sure you want to Clean your Space?\n\nThis will remove your profile and all saved writings.",
         async () => {
 
             try {
@@ -2031,8 +2031,8 @@ document.addEventListener("DOMContentLoaded", loadProfile);
       async function resetApp(){
 
     showHeartNotePopup(
-        "Reset App",
-        "Reset app?\n\nAll writings will be deleted.",
+        "Take a Break",
+        "Take a Break?\n\nAll writings will be deleted.",
         async () => {
 
             const res = await fetch("/api/reset-app/",{
@@ -2203,10 +2203,7 @@ document.addEventListener("DOMContentLoaded", loadProfile);
             profileAvatar.src = data.avatar_url;
             if (dashboardAvatar) dashboardAvatar.src = data.avatar_url;
         }
-
     });
-
-
 });
     </script>
 </body>

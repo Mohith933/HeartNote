@@ -11,9 +11,19 @@ GEMINI_MODEL = "gemini-2.5-flash"
 # TONE DEPTH MAP
 # -----------------------------------------------------
 DEPTH_TONE = {
-    "light": "Write gently. Keep it simple and calm.",
-    "medium": "Write naturally. Keep it clear and honest.",
-    "deep": "Write with emotional weight. Use one real detail. Keep sentences short."
+    "light": """Write gently and simply.
+Use easy words and a soft tone.
+Keep it natural, like a passing thought.""",
+
+    "medium": """Write naturally and honestly.
+Keep it clear but not too polished.
+Let it feel like everyday thinking.""",
+
+    "deep": """Write like a quiet, personal thought.
+Use short and slightly uneven sentences.
+Include one real detail.
+Let one sentence feel slightly incomplete.
+Avoid polished or poetic language."""
 }
 
 SUPPORTED_LANGUAGES = {
@@ -29,20 +39,22 @@ SUPPORTED_LANGUAGES = {
 # -----------------------------------------------------
 
 DASHBOARD_REFLECTION = """
-Write a simple emotional reflection in {language}.
+Write a short emotional reflection in {language}.
 
 Topic: {name}
 Feeling: {desc}
 Style: {tone}
 
-Rules:
+Write like a real person thinking quietly.
+
+Guidelines:
 - 40–60 words
 - 3–5 sentences
-- Mention one concrete detail
-- No advice or life lessons
-- End naturally
-- Keep it complete
-- Do not cut sentences
+- Include one small, specific real-world detail
+- Let the tone be slightly uneven
+- Let one sentence feel a bit imperfect or unfinished
+- Avoid advice or life lessons
+- Avoid polished or poetic phrasing
 
 Return only the reflection.
 """
@@ -55,14 +67,16 @@ Recipient: {name}
 Feeling: {desc}
 Style: {tone}
 
-Rules:
+Write like someone expressing something they didn’t fully say before.
+
+Guidelines:
 - 50–60 words
 - 3–4 sentences
-- No advice or moral tone
-- Focus on feelings only
-- End naturally
-- Keep it complete
-- Do not cut sentences
+- Keep tone honest and slightly vulnerable
+- Include one small, real detail (memory, object, or moment)
+- Let one sentence feel slightly incomplete or soft
+- Avoid advice or moral tone
+- Avoid perfect phrasing
 
 Start with:
 Dear You,
@@ -72,20 +86,22 @@ Return only the letter.
 
 
 DASHBOARD_JOURNAL = """
-Write a calm journal entry in {language}.
+Write a calm personal journal entry in {language}.
 
 Topic: {name}
 Feeling: {desc}
 Style: {tone}
 
-Rules:
+Write like a quiet end-of-day thought.
+
+Guidelines:
 - 50–70 words
 - 4–6 sentences
-- Mention one real detail
-- No advice or philosophy
-- End naturally
-- Keep it complete
-- Do not cut sentences
+- Include one small, real detail from the day (object, place, or moment)
+- Let thoughts flow naturally, not perfectly structured
+- Allow slight repetition or pause-like phrasing
+- Keep tone reflective, not philosophical
+- Avoid advice or conclusions
 
 Start with:
 Date: {date}
@@ -105,13 +121,15 @@ Feeling:
 
 Style: {tone}
 
-Rules:
+Write like a real message someone would send and then pause before hitting send.
+
+Guidelines:
 - 25–45 words
-- Simple and honest
-- No advice
-- End naturally
-- Keep it complete
-- Do not cut sentences
+- Simple, natural, and honest
+- Include one small specific detail if it fits
+- Let the tone feel slightly unfinished or open
+- Avoid advice or dramatic tone
+- Avoid overly polished language
 
 Return only the message.
 """
@@ -128,13 +146,15 @@ Feeling:
 
 Style: {tone}
 
-Rules:
+Write like remembering something small but meaningful.
+
+Guidelines:
 - 40–60 words
-- Include one small past detail
-- No life lesson
-- End naturally
-- Keep it complete
-- Do not cut sentences
+- Include one specific past detail (place, object, or moment)
+- Keep tone gentle and slightly nostalgic
+- Let one sentence feel a bit uneven or personal
+- Avoid life lessons or moral meaning
+- Avoid poetic or cinematic language
 
 Return only the reflection.
 """
@@ -151,13 +171,15 @@ Feeling:
 
 Style: {tone}
 
-Rules:
+Write like a quiet inner check-in, not a solution.
+
+Guidelines:
 - 35–55 words
-- Calm tone
-- Awareness only, no advice
-- End naturally
-- Keep it complete
-- Do not cut sentences
+- Calm and aware tone
+- Include one small present-moment detail (body, space, or environment)
+- Let the flow feel natural, not structured
+- Allow slight imperfection in phrasing
+- No advice, no fixing, no conclusions
 
 Return only the reflection.
 """

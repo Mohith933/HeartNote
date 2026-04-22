@@ -45,28 +45,9 @@ def admin_stats(request):
         "new_users_today": recent_users
     })
 
-
-llm_simple = LLM_Service()
+
 dashboard_llm = Dashboard_LLM_Service()
-
-def generate_text(request):
-    mode = request.GET.get("mode", "").strip()
-    text = request.GET.get("text", "").strip()
-    tone = request.GET.get("tone", "soft").strip()  # default tone = soft
-
-    # --- Validation ---
-    if not mode:
-        return JsonResponse({"response": "⚠️ Mode is missing."})
-
-    if not text:
-        return JsonResponse({"response": "⚠️ Please enter text."})
-
-    # --- Generate output ---
-    response_text = llm_simple.generate(mode, text, tone)
-
-    return JsonResponse({"response": response_text})
-
-
+
 def generate_dashboard(request):
     mode = request.GET.get("mode")
     name = request.GET.get("name", "")

@@ -989,7 +989,6 @@
 }
 
 .helper-text{
-        margin-top: 10px;
         margin-bottom:5px;
         text-align: center;
       /* space from button */
@@ -1199,7 +1198,7 @@
 <button class="reset-btn" onclick="resetApp()">Reset My Data</button>
 
 <button class="logout-btn" onclick="logout()">Log Out</button>
-<p class="helper-text">Shape your space the way it feels right</p>
+<p class="soft-note">Shape your space the way it feels right</p>
             </div>
 
             <!-- ABOUT SECTION -->
@@ -1258,7 +1257,9 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                         <textarea id="descInput" rows="4"
                             placeholder="Describe the real moment. What happened? What was said? What did you not say?"
                             required></textarea>
-                        
+                            <p id="continuationText" class="helper-text subtle">
+    You can start small… even one line is enough.
+</p>
                     </div>
                     
 
@@ -1269,7 +1270,7 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
 
                     </select>
                     <button class="generate" id="continueBtn" onclick="generateContent()">Continue Writing</button>
-                    <p class="helper-text">Your Writing gently expanded Here</p>
+                    <p class="helper-text">Your words continue here</p>
                 </div>
                 <div class="playground-section">
                                 <div class="writing-actions">
@@ -1278,9 +1279,8 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                         <button class="copy-btn" onclick="copyText()">Copy</button>
                         </div>
                          </div>
-                    <div id="output" class="output">Take a breath...
-What you couldn't say yet
-begins to take shape
+                    <div id="output" class="output">Start anywhere...
+It doesn’t have to be complete.
                     </div>
                 </div>
             </div>
@@ -1321,12 +1321,12 @@ begins to take shape
                 document.getElementById("nameInput").value = found.nameInput || "";
                 document.getElementById("descInput").value = found.descInput || "";
                 document.getElementById("depthInput").value = found.depthInput || "light";
-                document.getElementById("output").innerText = found.output || "Your words from that moment will appear here...";
+                document.getElementById("output").innerText = found.output || "Start anywhere... It doesn’t have to be complete.";
             } else {
                 document.getElementById("nameInput").value = "";
                 document.getElementById("descInput").value = "";
                 document.getElementById("depthInput").value = "light";
-                document.getElementById("output").innerText = "Your words from that moment will appear here...";
+                document.getElementById("output").innerText = "Start anywhere... It doesn’t have to be complete.";
             }
         }
 
@@ -2163,8 +2163,39 @@ document.addEventListener("DOMContentLoaded", loadProfile);
             if (dashboardAvatar) dashboardAvatar.src = data.avatar_url;
         }
     });
+    const CONTINUATION_PROMPTS = {
+    light: [
+        "You can start small… even one line is enough.",
+        "Write it the way it came to you.",
+        "No need to explain everything."
+    ],
+    medium: [
+        "Say it the way you would in your head.",
+        "You don’t need perfect words here.",
+        "Just write what stayed."
+    ],
+    deep: [
+        "Write the part you usually avoid.",
+        "You can be honest here… no one is judging.",
+        "Even if it feels unclear, write it."
+    ]
+};
+
+function updateContinuationText() {
+    const depth = document.getElementById("depthInput").value;
+    const textEl = document.getElementById("continuationText");
+
+    const options = CONTINUATION_PROMPTS[depth];
+    const random = options[Math.floor(Math.random() * options.length)];
+
+    textEl.innerText = random;
+}
+
+document.getElementById("depthInput").addEventListener("change", updateContinuationText);
+
+// initial load
+updateContinuationText();
 });
     </script>
 </body>
-
 </html>

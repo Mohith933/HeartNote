@@ -989,8 +989,8 @@
 }
 
 .helper-text{
-        margin-top: 8px;
-        margin-bottom:8px;
+        margin-top: 10px;
+        margin-bottom:5px;
         text-align: center;
       /* space from button */
       font-size: 0.85rem;
@@ -1100,7 +1100,6 @@
             </a>
         </div>
     </div>
-
     <!-- 🧠 Understand Feelings -->
     <div class="menu-group">
         <button class="dropdown-btn">Understand Yourself▾</button>
@@ -1109,25 +1108,8 @@
                onclick="confirmExitWhileWriting(() => openTool('Messages')); setActiveMenu(this)">
                🫤 Messages
             </a>
-
-            <a href="#"
-               onclick="confirmExitWhileWriting(() => openTool('Memories')); setActiveMenu(this)">
-               🧠 Memories
-            </a>
         </div>
     </div>
-
-    <!-- 🫶 Self Check -->
-    <div class="menu-group">
-        <button class="dropdown-btn">Check yourself▾</button>
-        <div class="dropdown-content">
-            <a href="#"
-               onclick="confirmExitWhileWriting(() => openTool('CheckIn')); setActiveMenu(this)">
-               🫶 Check-In
-            </a>
-        </div>
-    </div>
-
 </nav>
         </div>
     </aside>
@@ -1174,7 +1156,7 @@
                 </div>
 
                 <div class="info-row">
-                    <strong>Reach you at</strong>
+                    <strong>Your email</strong>
                     <span id="displayEmail"></span>
                 </div>
 <p class="soft-note">You’ve been honest here.</p>
@@ -1212,11 +1194,12 @@
                     </select>
                 </label> <button class="feedback-btn" onclick = "openFeedbackForm()">Share a thought</button>
 
-<button class="danger-btn" onclick="deleteAccount()">Clear this space</button>
+<button class="danger-btn" onclick="deleteAccount()">Delete Account</button>
 
-<button class="reset-btn" onclick="resetApp()">Take a break</button>
+<button class="reset-btn" onclick="resetApp()">Reset My Data</button>
 
-<button class="logout-btn" onclick="logout()">Leave completely</button>
+<button class="logout-btn" onclick="logout()">Log Out</button>
+<p class="helper-text">Shape your space the way it feels right</p>
             </div>
 
             <!-- ABOUT SECTION -->
@@ -1231,17 +1214,7 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
 
         <!-- Dashboard Cards -->
         <div id="libraryView">
-                <h3 class="maincardname">How are you feeling right now?</h3>
-              <div class="checkin-box">
-    <div class="checkin-buttons">
-        <button onclick="quickCheckin('calm')">🌿 Calm</button>
-        <button onclick="quickCheckin('low')">🌧️ Low</button>
-        <button onclick="quickCheckin('peaceful')">🌅 Peaceful</button>
-        <button onclick="quickCheckin('confused')">🌫️ Confused</button>
-    </div>
-</div>
             <h3 class="maincardname">Where do you want to start?</h3>
-            
             <div class="cards">
                 <div class="card" onclick="openTool('Letters')">
                     <div class="card-icon">💌</div>
@@ -1787,52 +1760,38 @@ async function goBack() {
     }
 
     const cardsContainer = document.querySelector(".cards");
-    const isMobile = window.innerWidth <= 768;
 
     cardsContainer.innerHTML = "";
 
     const cards = [
-    {
-        icon:"🌿",
-        title:"Something’s on your mind",
-        desc:"Break down a moment and understand it.",
-        tool:"Reflection"
-    },
-    {
-        icon:"💭",
-        title:"Just write",
-        desc:"No structure, just let it out.",
-        tool:"Journal"
-    },
-    {
-        icon:"❤️",
-        title:"Say something to someone",
-        desc:"Express what you couldn't say.",
-        tool:"Letters"
-    },
-    {
-        icon:"🫤",
-        title:"Feeling confused",
-        desc:"Turn unclear thoughts into clarity.",
-        tool:"Messages"
-    },
-    {
-        icon:"🧠",
-        title:"Thinking about the past",
-        desc:"Capture and understand memories.",
-        tool:"Memories"
-    },
-    {
-        icon:"🫶",
-        title:"Check how I’m doing",
-        desc:"Pause and reflect emotionally.",
-        tool:"CheckIn"
-    }
-];
+        {
+            icon:"🌿",
+            title:"Something’s on your mind",
+            desc:"Break down a moment and understand it.",
+            tool:"Reflection"
+        },
+        {
+            icon:"💭",
+            title:"Just write",
+            desc:"No structure, just let it out.",
+            tool:"Journal"
+        },
+        {
+            icon:"❤️",
+            title:"Say something to someone",
+            desc:"Express what you couldn't say.",
+            tool:"Letters"
+        },
+        {
+            icon:"🫤",
+            title:"Feeling confused",
+            desc:"Turn unclear thoughts into clarity.",
+            tool:"Messages"
+        }
+    ];
 
-    const visibleCards = isMobile ? cards.slice(0,4) : cards;
-
-    visibleCards.forEach(card => {
+    // SAME for mobile + desktop
+    cards.forEach(card => {
         cardsContainer.innerHTML += `
         <div class="card" onclick="openTool('${card.tool}')">
             <div class="card-icon">${card.icon}</div>

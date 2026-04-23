@@ -87,7 +87,7 @@
 
     .logo {
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: var(--accent);
       display: flex;
       align-items: center;
@@ -98,7 +98,7 @@
     height: 100%;
     margin-left: -20px;
     margin-right: -20px;
-    margin-bottom: -10px;
+    margin-bottom: -5px;
 }
 
     .cta-btn {
@@ -207,7 +207,7 @@
       font-size: 2.8rem;
       color: var(--accent);
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
     .hero p {
@@ -241,8 +241,10 @@
     transform: translateY(0);
   }
 }
+
+
     .hero .helper-text {
-      margin-top: 8px;
+      margin-top: 16px;
       /* space from button */
       font-size: 0.85rem;
       /* smaller text */
@@ -358,14 +360,14 @@
     /* Responsive */
     @media (max-width: 768px) {
       span{
-        font-size:1.3rem;
+        font-size:1.2rem;
       }
        .logo img {
-           width: 50px;
-        height: 100%;
-        margin-left: -20px;
-        margin-right: -15px;
-        margin-bottom: -7px;
+    width: 40px;
+    height: 100%;
+    margin-left: -20px;
+    margin-right: -10px;
+    margin-bottom: -5px;
 }
 .hn-popup{
                 left:5%;
@@ -387,7 +389,10 @@ padding : 10px 14px;
         flex-direction: row;
         gap: 10px;
       }
-      
+
+      .journey-step {
+        padding: 20px;
+      }
     }
   </style>
 </head>
@@ -408,7 +413,7 @@ padding : 10px 14px;
 </div>
 
   <header>
-    <div class="logo"> <img src="{% static 'icons/icon-512.png' %}" alt="HeartNote Logo">
+    <div class="logo"> <img src="{% static 'icons/icon-512.png' %}" alt="HeartNote AI Logo">
     <span>HeartNote</span></div>
     <div class="buttons">
     <button class="cta-btn" id="openLogin">Login</button>
@@ -417,20 +422,14 @@ padding : 10px 14px;
 
 
   <section class="hero" id="home">
-  <h1>A quiet place for your thoughts.
+    <h1>A quiet place for your thoughts.<br>
 Write what you couldn’t say.</h1>
-
-  <button class="hero-btn" id="openSignup">
-    Write your first note
-  </button>
-
-  <p class="helper-text">
-    Start with something you’ve been holding... Sign up to save it.
-  </p>
-</section>
+<button id="openSignup" class="hero-btn">Write your first note</button>
+<p class="helper-text">Start with something you’ve been holding... Sign up to save it.</p>
+  </section>
   <footer>
     <h3>HeartNote</h3>
-<p>A small space for real thoughts.</p>
+<p>Built around real human moments.</p>
   </footer>
 
   <!-- Signup Modal -->
@@ -454,7 +453,7 @@ Write what you couldn’t say.</h1>
 
       <button id="submitSignup">Sign Up</button>
       <p>Already have an account? <span id="switchLogin" class="pink">Login</span></p>
-      <p class="helper-text">Takes less than a minute</p>
+      <p>Your space may reset occasionally.</p>
     </div>
   </div>
 

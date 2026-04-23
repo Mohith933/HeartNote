@@ -134,56 +134,6 @@ Guidelines:
 Return only the message.
 """
 
-
-DASHBOARD_MEMORIES = """
-Write a short memory reflection in {language}.
-
-Memory about:
-{name}
-
-Feeling:
-{desc}
-
-Style: {tone}
-
-Write like remembering something small but meaningful.
-
-Guidelines:
-- 40–60 words
-- Include one specific past detail (place, object, or moment)
-- Keep tone gentle and slightly nostalgic
-- Let one sentence feel a bit uneven or personal
-- Avoid life lessons or moral meaning
-- Avoid poetic or cinematic language
-
-Return only the reflection.
-"""
-
-
-DASHBOARD_CHECKIN = """
-Write a gentle emotional check-in in {language}.
-
-Focus:
-{name}
-
-Feeling:
-{desc}
-
-Style: {tone}
-
-Write like a quiet inner check-in, not a solution.
-
-Guidelines:
-- 35–55 words
-- Calm and aware tone
-- Include one small present-moment detail (body, space, or environment)
-- Let the flow feel natural, not structured
-- Allow slight imperfection in phrasing
-- No advice, no fixing, no conclusions
-
-Return only the reflection.
-"""
-
 # -----------------------------------------------------
 # LLM SERVICE
 # -----------------------------------------------------
@@ -300,9 +250,7 @@ class Dashboard_LLM_Service:
             "reflection": DASHBOARD_REFLECTION,
             "letters": DASHBOARD_LETTER,
             "journal": DASHBOARD_JOURNAL,
-            "messages": DASHBOARD_MESSAGES,
-            "memories": DASHBOARD_MEMORIES,
-            "checkin": DASHBOARD_CHECKIN
+            "messages": DASHBOARD_MESSAGES
         }.get(mode)
 
     # -------------------------------------------------

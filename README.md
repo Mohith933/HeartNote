@@ -2,7 +2,7 @@
 
 > Write from what actually happened.
 
-HeartNote is a human-centered writing tool powered by AI that transforms real-life moments into meaningful, structured, and deeply personal writing.
+HeartNote is a human-centered writing space powered by AI that transforms real-life moments into meaningful, structured, and deeply personal writing.
 
 ---
 
@@ -68,7 +68,7 @@ python manage.py runserver
 
 ### 🔥 Key Changes I made (important)
 - Removed **“AI-first” feeling**
-- Positioned as **“human-centered tool powered by AI”**
+- Positioned as **“human-centered space powered by AI”**
 - Kept your structure EXACT (good for GitHub)
 - Slightly improved clarity + professionalism
 

@@ -87,18 +87,18 @@
 
     .logo {
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: var(--accent);
       display: flex;
       align-items: center;
       gap: 8px;
     }
        .logo img {
-width: 60px;
+            width: 60px;
     height: 100%;
     margin-left: -20px;
     margin-right: -20px;
-    margin-bottom: -8px;
+    margin-bottom: -5px;
 }
 
     .cta-btn {
@@ -207,7 +207,7 @@ width: 60px;
       font-size: 2.8rem;
       color: var(--accent);
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
 
     .hero p {
@@ -242,9 +242,96 @@ width: 60px;
   }
 }
 
+    /* Features */
+    .features {
+      padding: 80px 8%;
+      background: var(--muted);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .features h2 {
+      text-align: center;
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 50px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 28px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .feature {
+      background: var(--card);
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(255, 77, 109, 0.12);
+      transition: transform 0.2s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .feature h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .feature p {
+      color: var(--text);
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* Journey Section */
+    .journey {
+      padding: 80px 8%;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .journey h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+
+    .journey-timeline {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      gap: 40px;
+    }
+
+    .journey-step {
+      background: var(--muted);
+      border-left: 6px solid var(--accent);
+      padding: 24px;
+      border-radius: 12px;
+      text-align: left;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .journey-step h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .journey-step p {
+      color: var(--text);
+      font-size: 1rem;
+      opacity: 0.9;
+    }
 
     .hero .helper-text {
-      margin-top: 16px;
+      margin-top: 8px;
       /* space from button */
       font-size: 0.85rem;
       /* smaller text */
@@ -360,14 +447,14 @@ width: 60px;
     /* Responsive */
     @media (max-width: 768px) {
       span{
-        font-size:1.3rem;
+        font-size:1.2rem;
       }
        .logo img {
-          width: 50px;
-        height: 100%;
-        margin-left: -20px;
-        margin-right: -15px;
-        margin-bottom: -6px;
+    width: 40px;
+    height: 100%;
+    margin-left: -20px;
+    margin-right: -10px;
+    margin-bottom: -5px;
 }
 .hn-popup{
                 left:5%;
@@ -422,11 +509,67 @@ padding : 10px 14px;
 
 
   <section class="hero" id="home">
-    <h1>A quiet place for your thoughts.<br>
-Write what you couldn’t say.</h1>
-<button id="openSignup" class="hero-btn">Write your first note</button>
-<p class="helper-text">Start with something you’ve been holding... Sign up to save it.</p>
+    <h1>Write What You Couldn't Say.</h1>
+<p>Start from a real moment. Turn it into words that actually feel like you.</p>
+<button class="hero-btn" id="OpenSingup">Sign up for free</button>
+<p class="helper-text">No pressure. Just begin.</p>
   </section>
+
+  <section class="features" id="features">
+  <h2>What You Can Do Here</h2>
+
+  <div class="features-grid">
+
+    <div class="feature">
+      <h3>Reflect a Moment</h3>
+      <p>Break down something that stayed with you and understand it clearly.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Write Freely</h3>
+      <p>No structure. Just let your thoughts come out as they are.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Say What You Couldn't</h3>
+      <p>Write to someone when you couldn’t say it directly.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Clear Confusion</h3>
+      <p>Turn mixed thoughts into something simple and understandable.</p>
+    </div>
+
+  </div>
+</section>
+
+  <section class="journey" id="journey">
+  <h2>How It Actually Works</h2>
+
+  <div class="journey-timeline">
+
+    <div class="journey-step">
+      <h3>1. Start With a Moment</h3>
+      <p>Think of something real — a conversation, a feeling, or something you couldn’t say.</p>
+    </div>
+
+    <div class="journey-step">
+      <h3>2. Write What You Remember</h3>
+      <p>Describe what happened, what was said, or what you held back.</p>
+    </div>
+
+    <div class="journey-step">
+      <h3>3. See It Take Shape</h3>
+      <p>Your thoughts turn into clear, simple writing that feels like you.</p>
+    </div>
+
+    <div class="journey-step">
+      <h3>4. Continue or Keep It</h3>
+      <p>Edit it, continue writing, or just keep it private.</p>
+    </div>
+
+  </div>
+</section>
   <footer>
     <h3>HeartNote</h3>
 <p>Built around real human moments.</p>
@@ -453,7 +596,6 @@ Write what you couldn’t say.</h1>
 
       <button id="submitSignup">Sign Up</button>
       <p>Already have an account? <span id="switchLogin" class="pink">Login</span></p>
-      <p>Your space may reset occasionally.</p>
     </div>
   </div>
 

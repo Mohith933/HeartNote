@@ -1258,7 +1258,7 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                             placeholder="Describe the real moment. What happened? What was said? What did you not say?"
                             required></textarea>
                             <p id="continuationText" class="helper-text subtle">
-    You can start small… even one line is enough.
+    Start with one real moment. You can expand it slowly.
 </p>
                     </div>
                     
@@ -1269,8 +1269,10 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
 <option value="deep">Raw</option>
 
                     </select>
-                    <button class="generate" id="continueBtn" onclick="generateContent()">Continue Writing</button>
-                    <p class="helper-text">Your words continue here</p>
+                    <button class="generate" id="continueBtn" onclick="generateContent()">
+    Start Writing 
+</button>
+<p class="helper-text">Your words will gently continue below</p>
                 </div>
                 <div class="playground-section">
                                 <div class="writing-actions">
@@ -1613,12 +1615,30 @@ async function goBack() {
                 state.dataset.fallback = isFallback ? "true" : "false";
 
 
-                const text = data.response.response.trim();
-                lastGeneratedText = text;
-                hasGeneratedContent = true; // ✅ IMPORTANT
-                emotionalTypeWrite(text, "output", depth, () => {
-                    isWriting = false;
-                });
+                const newText = data.response.response.trim();
+
+const outputEl = document.getElementById("output");
+const existingText = outputEl.innerText.trim();
+
+// ✅ Button text update
+const btn = document.getElementById("continueBtn");
+if (!existingText) {
+    btn.innerText = "Start writing";
+} else {
+    btn.innerText = "Continue this";
+}
+
+// ✅ Combine text
+const finalText = existingText
+    ? existingText + "\n\n" + newText
+    : newText;
+
+lastGeneratedText = finalText;
+hasGeneratedContent = true;
+
+emotionalTypeWrite(finalText, "output", depth, () => {
+    isWriting = false;
+});
 
             } catch (err) {
                 console.error(err);

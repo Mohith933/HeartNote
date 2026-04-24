@@ -838,13 +838,11 @@
             transition: .3s ease;
         }
 
-        .font-cute {
-            font-family: 'Patrick Hand', cursive;
-        }
 
-        .font-deep {
-            font-family: 'Caveat', cursive;
-        }
+        .disabled-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
         .font-journal {
             font-family: 'Kalam', cursive;
@@ -1257,9 +1255,6 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                         <textarea id="descInput" rows="4"
                             placeholder="Describe the real moment. What happened? What was said? What did you not say?"
                             required></textarea>
-                            <p id="continuationText" class="helper-text subtle">
-    Start with one real moment. You can expand it slowly.
-</p>
                     </div>
                     
 
@@ -1269,10 +1264,8 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
 <option value="deep">Raw</option>
 
                     </select>
-                    <button class="generate" id="continueBtn" onclick="generateContent()">
-    Start Writing 
-</button>
-<p class="helper-text">Your words will gently continue below</p>
+                    <button class="generate" id="continueBtn" onclick="generateContent()">Start Writing</button>
+                    <p id="helperText" class="helper-text"></p>
                 </div>
                 <div class="playground-section">
                                 <div class="writing-actions">
@@ -1298,6 +1291,19 @@ It doesn’t have to be complete.
             document.getElementById("libraryView").style.display = "none";
             document.getElementById("workspaceView").classList.remove("active");
             document.getElementById("accountView").classList.add("hidden");
+
+                document.getElementById("nameInput").disabled = false;
+    document.getElementById("descInput").disabled = false;
+    document.getElementById("depthInput").disabled = false;
+    document.getElementById("output").disabled= false;
+  const btn = document.getElementById("continueBtn");
+
+btn.innerText = "Continue Writing";
+btn.classList.remove("disabled-btn");
+btn.disabled = false;
+
+    document.getElementById("helperText").innerText =
+"Your writing gently expands here.";
 
 
             // --- 1️⃣ Dashboard ---
@@ -1411,14 +1417,6 @@ async function showRecents(){
     container.innerHTML = html;
 }
 
-        function quickCheckin(mood) {
-    console.log("User mood:", mood);
-
-    // Redirect to Journal (or Reflection)
-    openTool('Journal');
-
-    // Optional later: pass mood to next screen
-}
         // 🧹 Delete one
        async function deleteRecent(id){
 
@@ -1470,6 +1468,20 @@ async function showRecents(){
     // switch UI
     document.getElementById("libraryView").style.display = "none";
     document.getElementById("workspaceView").classList.add("active");
+
+
+    document.getElementById("nameInput").disabled = true;
+    document.getElementById("descInput").disabled = true;
+    document.getElementById("depthInput").disabled = true;
+    document.getElementById("output").disabled= true;
+
+    const btn = document.getElementById("continueBtn");
+
+btn.innerText = "Start a new note";
+btn.classList.add("disabled-btn"); // optional styling
+btn.disabled = true;
+    document.getElementById("helperText").innerText =
+"This is a saved moment. Start a new note to write.";
 }
         function capitalizeFirst(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
@@ -1581,6 +1593,7 @@ async function goBack() {
             if (isWriting) return; // prevent double click
 
             isWriting = true;
+            alreadySaved = false;
 
             const name = document.getElementById("nameInput").value.trim();
             const desc = document.getElementById("descInput").value.trim();
@@ -1615,30 +1628,12 @@ async function goBack() {
                 state.dataset.fallback = isFallback ? "true" : "false";
 
 
-                const newText = data.response.response.trim();
-
-const outputEl = document.getElementById("output");
-const existingText = outputEl.innerText.trim();
-
-// ✅ Button text update
-const btn = document.getElementById("continueBtn");
-if (!existingText) {
-    btn.innerText = "Start writing";
-} else {
-    btn.innerText = "Continue this";
-}
-
-// ✅ Combine text
-const finalText = existingText
-    ? existingText + "\n\n" + newText
-    : newText;
-
-lastGeneratedText = finalText;
-hasGeneratedContent = true;
-
-emotionalTypeWrite(finalText, "output", depth, () => {
-    isWriting = false;
-});
+                const text = data.response.response.trim();
+                lastGeneratedText = text;
+                hasGeneratedContent = true; // ✅ IMPORTANT
+                emotionalTypeWrite(text, "output", depth, () => {
+                    isWriting = false;
+                });
 
             } catch (err) {
                 console.error(err);
@@ -2183,39 +2178,9 @@ document.addEventListener("DOMContentLoaded", loadProfile);
             if (dashboardAvatar) dashboardAvatar.src = data.avatar_url;
         }
     });
-    const CONTINUATION_PROMPTS = {
-    light: [
-        "You can start small… even one line is enough.",
-        "Write it the way it came to you.",
-        "No need to explain everything."
-    ],
-    medium: [
-        "Say it the way you would in your head.",
-        "You don’t need perfect words here.",
-        "Just write what stayed."
-    ],
-    deep: [
-        "Write the part you usually avoid.",
-        "You can be honest here… no one is judging.",
-        "Even if it feels unclear, write it."
-    ]
-};
 
-function updateContinuationText() {
-    const depth = document.getElementById("depthInput").value;
-    const textEl = document.getElementById("continuationText");
-
-    const options = CONTINUATION_PROMPTS[depth];
-    const random = options[Math.floor(Math.random() * options.length)];
-
-    textEl.innerText = random;
-}
-
-document.getElementById("depthInput").addEventListener("change", updateContinuationText);
-
-// initial load
-updateContinuationText();
 });
-    </script>
+
+</script>
 </body>
 </html>

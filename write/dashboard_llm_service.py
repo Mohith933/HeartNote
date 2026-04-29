@@ -257,8 +257,8 @@ class Dashboard_LLM_Service:
                 fallback = self.generate_fallback(mode, name, desc, language)
                 return {"response": fallback,"blocked": False,"is_fallback": True}
         except Exception:
-        fallback = self.generate_fallback(mode, name, desc, language)
-        return {"response": fallback,"blocked": False,"is_fallback": True}
+            fallback = self.generate_fallback(mode, name, desc, language)
+            return {"response": fallback,"blocked": False,"is_fallback": True}
 
 
 

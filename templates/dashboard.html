@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="manifest" href="{% static 'pwa/manifest.json' %}">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
     <meta name="theme-color" content="#ffffff" id="themeColorMeta">
     <style>
         body[data-theme="light"] {
@@ -1230,7 +1231,7 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                 </div>
             </div>
             <div id="recentSection" class="recent-section">
-                <h3>My Moments</h3>
+                <h3>Your Moments</h3>
                 <div id="recentCards" class="recent-cards"></div>
             </div>
         </div>
@@ -1271,7 +1272,10 @@ It helps you slow down, notice what stayed with you, and express it clearly.</p>
                                 <div class="writing-actions">
                         <div class="playground-header">
                         <h3>What's taking shape...</h3>
+                        <div>
                         <button class="copy-btn" onclick="copyText()">Copy</button>
+                        <button class="copy-btn" id="shareBtn">Share as Image</button>
+                        </div>
                         </div>
                          </div>
                     <div id="output" class="output">Start anywhere...
@@ -1418,17 +1422,24 @@ async function showRecents(){
 }
 
         // 🧹 Delete one
-       async function deleteRecent(id){
+ function deleteRecent(id){
 
-    await fetch("/api/delete-writing/",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({id})
-    });
+    showHeartNotePopup(
+        "Delete this moment?",
+        "This can't be undone.",
+        async () => {
 
-    showRecents();
+            await fetch("/api/delete-writing/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id })
+            });
+
+            showRecents();
+        }
+    );
 }
 
     let typingInterval = null;
@@ -1642,32 +1653,34 @@ async function goBack() {
             }
         }
         function showHeartNotePopup(title, message, onConfirm) {
-            const popup = document.getElementById("hn-popup");
-            document.getElementById("hn-popup-title").innerText = title;
-            document.getElementById("hn-popup-message").innerText = message;
+    const popup = document.getElementById("hn-popup");
 
-            const confirmBtn = document.getElementById("hn-popup-confirm");
-            confirmBtn.onclick = () => {
-                closeHeartNotePopup();
-                if (onConfirm) onConfirm();
-            };
+    document.getElementById("hn-popup-title").innerText = title;
+    document.getElementById("hn-popup-message").innerText = message;
 
-            document.getElementById("hn-popup").classList.remove("hidden");
+    const confirmBtn = document.getElementById("hn-popup-confirm");
 
-            popup.classList.remove("hidden");
+    confirmBtn.onclick = () => {
+        closeHeartNotePopup();
+        if (onConfirm) onConfirm();
+    };
+
+    popup.classList.remove("hidden");
 
     setTimeout(() => {
         popup.classList.add("show");
     }, 10);
-        }
+}
 
-        function closeHeartNotePopup() {
-             const popup = document.getElementById("hn-popup");
-            document.getElementById("hn-popup").classList.add("hidden");
-            setTimeout(() => {
-        popup.classList.add("show");
-    }, 10);
-        }
+function closeHeartNotePopup() {
+    const popup = document.getElementById("hn-popup");
+
+    popup.classList.remove("show"); // ✅ remove animation
+
+    setTimeout(() => {
+        popup.classList.add("hidden"); // ✅ hide after animation
+    }, 200); // match CSS transition time
+}
 
        async function confirmExitWhileWriting(action) {
 
@@ -2179,8 +2192,39 @@ document.addEventListener("DOMContentLoaded", loadProfile);
         }
     });
 
+    document.getElementById("shareBtn").onclick = async () => {
+
+    const output = document.getElementById("output");
+
+    // prevent empty share
+    if (!output.innerText.trim()) {
+        showHeartNotePopup("Nothing to share", "Write something first.");
+        return;
+    }
+
+    const canvas = await html2canvas(output, {
+        backgroundColor: null
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+     const watermark = document.createElement("div");
+    watermark.innerText = "— Written on HeartNote";
+    watermark.style.marginTop = "20px";
+    watermark.style.fontSize = "12px";
+    watermark.style.opacity = "0.6";
+    watermark.style.textAlign = "right";
+
+    // download
+    const link = document.createElement("a");
+    link.href = imgData;
+    link.download = "heartnote.png";
+    link.click();
+};
+
 });
 
-</script>
+    </script>
 </body>
+
 </html>

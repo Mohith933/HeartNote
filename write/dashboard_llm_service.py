@@ -1,6 +1,8 @@
 import requests
 from datetime import datetime
 import os
+import random
+
 
 GEMINI_MODEL = "gemini-2.5-flash"
 
@@ -134,6 +136,51 @@ Guidelines:
 Return only the message.
 """
 
+def generate_fallback(self, mode, name, desc, language):
+    variations = []
+
+    if mode == "reflection":
+        variations = [
+            f"Thinking about {name} today. {desc} stayed with me longer than I expected. Something about it feels unfinished.",
+            f"{name} has been on my mind. {desc} keeps coming back in small moments. Not sure why exactly.",
+            f"It’s strange how {name} connects with this feeling. {desc} feels quiet but still there.",
+            f"{desc}… it’s not loud, but it lingers. Maybe that’s why I keep thinking about {name}.",
+            f"{name} feels different today. {desc} is there, just sitting in the background."
+        ]
+
+    elif mode == "messages":
+        variations = [
+            f"Hey… I was just thinking about {name}. {desc} feels a bit hard to say directly.",
+            f"I don’t know if this is the right time, but {desc} has been on my mind.",
+            f"This might sound random… but {desc} hasn’t really left me.",
+            f"Not sure how to say this properly… {desc}.",
+            f"Hey, just wanted to say… {desc}."
+        ]
+
+    elif mode == "journal":
+        date = datetime.now().strftime("%d/%m/%Y")
+        variations = [
+            f"Date: {date}\n\nToday felt a bit slow. {desc} stayed with me in small ways. I noticed it even in quiet moments.",
+            f"Date: {date}\n\nI kept thinking about {name}. {desc} didn’t go away, just softened a little.",
+            f"Date: {date}\n\nNothing big happened today. Still, {desc} was there in the background.",
+            f"Date: {date}\n\nSome thoughts kept repeating. {desc} didn’t feel loud, just constant.",
+            f"Date: {date}\n\nI don’t fully understand it yet. But {desc} stayed with me today."
+        ]
+
+    elif mode == "letters":
+        variations = [
+            f"Dear You,\n\nI didn’t say this before… {desc}. It stayed with me longer than I thought.",
+            f"Dear You,\n\nThere’s something I’ve been holding back. {desc}. Not sure how it sounds.",
+            f"Dear You,\n\nI keep coming back to this feeling. {desc}. Maybe that means something.",
+            f"Dear You,\n\nThis might not come out right… {desc}. But I wanted to say it.",
+            f"Dear You,\n\nIt’s been on my mind quietly. {desc}. I guess I couldn’t ignore it."
+        ]
+
+    if not variations:
+        variations = ["Something feels quiet right now. Words will come soon."]
+
+    return random.choice(variations)
+
 # -----------------------------------------------------
 # LLM SERVICE
 # -----------------------------------------------------
@@ -202,42 +249,16 @@ class Dashboard_LLM_Service:
             res.raise_for_status()
             data = res.json()
             raw = data["candidates"][0]["content"]["parts"][0]["text"]
-            if not isinstance(raw, str) or not raw.strip():
-                return {
-                "response": (
-                    "The words feel quiet right now.\n\n"
-                    "Some feelings take a moment before they find language."
-                ),
-                "blocked": False,
-                "is_fallback": True
-            }
-            return {
-            "response": raw.strip(),
-            "blocked": False,
-            "is_fallback": False}
-        except requests.exceptions.HTTPError as e:
+           if not isinstance(raw, str) or not raw.strip():
+               fallback = self.generate_fallback(mode, name, desc, language)
+               return {"response": fallback,"blocked": False,"is_fallback": True}
+        except requests.exceptions.HTTPError:
             if e.response is not None and e.response.status_code == 429:
-                return {
-                "response": "⚠️ Too many requests. Please wait a moment and try again.",
-                "blocked": True,
-                "is_fallback": False}
-            return {
-            "response": (
-                "The thoughts are still forming.\n\n"
-                "Please try again in a moment."
-            ),
-            "blocked": False,
-            "is_fallback": False
-            }
+                fallback = self.generate_fallback(mode, name, desc, language)
+                return {"response": fallback,"blocked": False,"is_fallback": True}
         except Exception:
-            return {
-            "response": (
-                "The thoughts are still forming.\n\n"
-                "Please try again in a moment."
-            ),
-            "blocked": False,
-            "is_fallback": False
-            }
+        fallback = self.generate_fallback(mode, name, desc, language)
+        return {"response": fallback,"blocked": False,"is_fallback": True}
 
 
 

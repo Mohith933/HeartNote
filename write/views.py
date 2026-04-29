@@ -4,11 +4,10 @@ from django.shortcuts import render,redirect
 from .dashboard_llm_service import Dashboard_LLM_Service
 from .models import HeartUser
 from .models import Writing
+from django.utils import timezone
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
-from django.utils import timezone
-from datetime import timedelta
 
 
 def home(request):
@@ -27,26 +26,10 @@ def dashboard(request):
     return render(request, "dashboard.html")
 
 
-
-
-def admin_stats(request):
-    total_users = HeartUser.objects.count()
-    total_writings = Writing.objects.count()
-
-    # Users joined in last 24 hours
-    recent_users = HeartUser.objects.filter(
-        created_at__gte=timezone.now() - timedelta(days=1)
-    ).count()
-
-    return JsonResponse({
-        "users": total_users,
-        "writings": total_writings,
-        "new_users_today": recent_users
-    })
-
-
 dashboard_llm = Dashboard_LLM_Service()
-
+
+
+
 def generate_dashboard(request):
     mode = request.GET.get("mode")
     name = request.GET.get("name", "")
@@ -165,6 +148,7 @@ def login_api(request):
     request.session["username"] = user.username
 
     return JsonResponse({"status": "ok"})
+
 @csrf_exempt
 def logout_api(request):
     request.session.flush()
@@ -254,16 +238,22 @@ def get_writings(request):
 
     for w in writings:
 
-        preview = w.output[:60]
-        if len(w.output) > 60:
+        # ✅ WORD-SAFE PREVIEW
+        words = w.output.split()
+        preview = " ".join(words[:12])  # ~50-70 chars naturally
+        if len(words) > 12:
             preview += "..."
+
+        # ✅ HUMAN TIME FORMAT
+        local_time = timezone.localtime(w.created_at)
+        time_str = local_time.strftime("%b %d • %I:%M %p")  # Apr 25 • 05:21 PM
 
         data.append({
             "id": w.id,
             "name": w.tool,
             "icon": w.icon,
             "preview": preview,
-            "time": w.created_at.strftime("%b %d, %H:%M"),
+            "time": time_str,
             "nameInput": w.nameInput,
             "descInput": w.descInput,
             "depthInput": w.depthInput,

@@ -259,7 +259,7 @@ class Dashboard_LLM_Service:
                  }
             fallback = self.generate_fallback(mode, name, desc, language)
             return {"response": fallback,"blocked": False,"is_fallback": True}
-        except requests.exceptions.HTTPError:
+        except requests.exceptions.HTTPError as e:
             if e.response is not None and e.response.status_code == 429:
                 fallback = self.generate_fallback(mode, name, desc, language)
                 return {"response": fallback,"blocked": False,"is_fallback": True}

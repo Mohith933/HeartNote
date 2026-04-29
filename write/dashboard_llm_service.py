@@ -249,16 +249,16 @@ class Dashboard_LLM_Service:
             res.raise_for_status()
             data = res.json()
             raw = data["candidates"][0]["content"]["parts"][0]["text"]
-           if not isinstance(raw, str) or not raw.strip():
+            if not isinstance(raw, str) or not raw.strip():
                fallback = self.generate_fallback(mode, name, desc, language)
                return {"response": fallback,"blocked": False,"is_fallback": True}
-        except requests.exceptions.HTTPError:
-            if e.response is not None and e.response.status_code == 429:
+            except requests.exceptions.HTTPError:
+                if e.response is not None and e.response.status_code == 429:
+                    fallback = self.generate_fallback(mode, name, desc, language)
+                    return {"response": fallback,"blocked": False,"is_fallback": True}
+            except Exception:
                 fallback = self.generate_fallback(mode, name, desc, language)
                 return {"response": fallback,"blocked": False,"is_fallback": True}
-        except Exception:
-            fallback = self.generate_fallback(mode, name, desc, language)
-            return {"response": fallback,"blocked": False,"is_fallback": True}
 
 
 

@@ -2,19 +2,10 @@
   "name": "HeartNote",
   "short_name": "HeartNote",
   "start_url": "/",
-  "id": "/",
   "display": "standalone",
-  "background_color": "#141414",
-  "theme_color": "#000000",
-  "lang": "en",
-  "dir": "ltr",
-  "orientation": "any",
-  "description": "HeartNote helps you turn real thoughts, emotions, and experiences into meaningful, structured writing in a human-focused way.",
-  "categories": [
-    "lifestyle",
-    "writing",
-    "health"
-  ],
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "Write your thoughts simply and clearly.",
   "icons": [
     {
       "src": "/static/icons/icon-192.png",
@@ -24,29 +15,6 @@
     {
       "src": "/static/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/static/screenshots/home.png",
-      "sizes": "1280x686",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/screenshots/dashboard.png",
-      "sizes": "1280x687",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/screenshots/workspace.png",
-      "sizes": "1280x692",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/screenshots/account.png",
-      "sizes": "1280x689",
       "type": "image/png"
     }
   ]
